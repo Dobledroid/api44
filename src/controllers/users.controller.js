@@ -303,4 +303,18 @@ export const login_skill = async (req, res) => {
   }
 };
 
-const axios = require('axios');
+import fetch from 'node-fetch';
+
+const obtenerHoraActual = async () => {
+  try {
+    const respuesta = await fetch('http://worldtimeapi.org/api/timezone/America/Mexico_City');
+    if (!respuesta.ok) {
+      throw new Error('No se pudo obtener la hora actual desde la API de WorldTimeAPI');
+    }
+    const datos = await respuesta.json();
+    const horaActualCompleta = datos.datetime;
+    return horaActualCompleta;
+  } catch (error) {
+    throw new Error('No se pudo obtener la hora actual desde la API de WorldTimeAPI');
+  }
+};
