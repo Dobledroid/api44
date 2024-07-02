@@ -303,4 +303,4 @@ export const login_skill = async (req, res) => {
   }
 };
 
-import axios from 'axios';
+const axios = require('axios');
