@@ -302,16 +302,3 @@ export const login_skill = async (req, res) => {
     res.status(500).json({ msg: "Error interno del servidor", error: error.message });
   }
 };
-
-import axios from 'axios';
-
-const obtenerHoraActual = async () => {
-  try {
-    const respuesta = await axios.get('http://worldtimeapi.org/api/timezone/America/Mexico_City');
-    const horaActualCompleta = respuesta.data.datetime;
-    return horaActualCompleta;
-  } catch (error) {
-    throw new Error('No se pudo obtener la hora actual desde la API de WorldTimeAPI');
-  }
-};
-
