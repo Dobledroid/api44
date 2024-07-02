@@ -302,3 +302,5 @@ export const login_skill = async (req, res) => {
     res.status(500).json({ msg: "Error interno del servidor", error: error.message });
   }
 };
+
+import axios from 'axios';
