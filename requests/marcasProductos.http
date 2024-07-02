@@ -1,0 +1,32 @@
+# Obtener todas las marcas
+GET http://localhost:3001/api/marcas
+
+#### Obtener una marca por su ID
+GET http://localhost:3001/api/marcas/1
+
+#### Obtener una marca por ID_categoria
+GET http://localhost:3001/api/marcasByIdCategoria/1
+
+####  Agregar una nueva marca
+POST http://localhost:3001/api/marcas
+Content-Type: application/json
+
+{
+    "nombre": "Nueva Marca",
+    "ID_categoria": 1
+}
+
+####  Eliminar una marca por su ID
+DELETE http://localhost:3001/api/marcas/1
+
+####  Obtener el total de marcas
+GET http://localhost:3001/api/marcas/count
+
+####  Actualizar una marca por su ID
+PUT http://localhost:3001/api/marcas/1
+Content-Type: application/json
+
+{
+    "nombre": "Marca Actualizada",
+    "ID_categoria": 2
+}

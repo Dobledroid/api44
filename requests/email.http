@@ -1,0 +1,30 @@
+@api = http://localhost:3001/api/send-recovery-email
+{{api}}
+
+### add a product
+POST http://localhost:3001/api/send-email
+Content-Type: application/json
+
+{
+    "to": "20210680@uthh.edu.mx",
+   
+}
+
+### get product
+{{api}}/carlosexequiel360@gmail.com
+
+### delete product 
+DELETE {{api}}/6
+
+### get count
+{{api}}/count
+
+### update
+PUT {{api}}/5
+Content-Type: application/json
+
+{
+    "name": "laptop",
+    "description": "some laptop",
+    "quantity": 20
+}

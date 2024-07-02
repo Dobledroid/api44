@@ -1,0 +1,31 @@
+@api = http://localhost:3001/api/subcategorias
+
+### Obtener todas las subcategorías de productos
+{{api}}
+
+### Obtener una subcategoría de producto por su ID
+GET {{api}}/1
+
+### Agregar una nueva subcategoría de producto
+POST {{api}}/subcategorias
+Content-Type: application/json
+
+{
+    "nombre": "Subcategoría Ejemplo",
+    "ID_categoria": 1
+}
+
+### Eliminar una subcategoría de producto por su ID
+DELETE {{api}}/subcategorias/1
+
+### Obtener el total de subcategorías de productos
+GET {{api}}/subcategorias/count
+
+### Actualizar una subcategoría de producto por su ID
+PUT {{api}}/subcategorias/1
+Content-Type: application/json
+
+{
+    "nombre": "Nueva Subcategoría",
+    "ID_categoria": 2
+}

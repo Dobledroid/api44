@@ -1,0 +1,32 @@
+@api = http://localhost:3001/api/products
+{{api}}
+
+### add a product
+POST http://localhost:3001/api/products
+Content-Type: application/json
+
+{
+    "name": "Creatina en polvo",
+    "description": "Creatina en polvo",
+    "price": 550.00,
+    "discount_price": 450.00,
+    "categorie": "Suplemento",
+    "imageUrl": "https://res.cloudinary.com/dubearvua/image/upload/v1706421763/lstbijwgfss61mwrdmvv.png"
+}
+
+### get product
+{{api}}/5
+
+### delete product 
+DELETE {{api}}/5
+
+### get count
+{{api}}/count
+
+### update
+PUT {{api}}/1
+Content-Type: application/json
+
+{
+    "image": "https://res.cloudinary.com/dubearvua/image/upload/v1706221634/uhdd3iph2hkzkdlq1rez.png",
+}

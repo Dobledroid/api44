@@ -1,0 +1,40 @@
+@api = http://localhost:3001/api/token
+{{api}}
+
+### add a product
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "20210680",
+    "email": "20210680@uthh.edu.mx",
+    "telephone": "7713169435",
+    "password": "pass1"
+}
+
+### get product
+{{api}}/
+
+### delete product 
+DELETE {{api}}/1
+
+### get count
+{{api}}/count
+
+### update
+PUT {{api}}/5
+Content-Type: application/json
+
+{
+    "name": "laptop",
+    "description": "some laptop",
+    "quantity": 20
+}
+
+### update password
+PUT {{api}}/update-password/3
+Content-Type: application/json
+
+{
+    "password": "pass3"
+}

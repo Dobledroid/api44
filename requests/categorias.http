@@ -1,0 +1,27 @@
+@api = http://localhost:3001/api/categorias-productos
+{{api}}
+
+### Agregar una nueva categoría de producto
+POST http://localhost:3001/api/categorias-productos
+Content-Type: application/json
+
+{
+    "nombre": "Electrónicos"
+}
+
+### Obtener una categoría de producto por su ID
+GET http://localhost:3001/api/categorias-productos/3
+
+### Eliminar una categoría de producto por su ID
+DELETE http://localhost:3001/api/categorias-productos/1
+
+### Obtener el total de categorías de productos
+GET http://localhost:3001/api/categorias-productos/count
+
+### Actualizar una categoría de producto por su ID
+PUT http://localhost:3001/api/categorias-productos/5
+Content-Type: application/json
+
+{
+    "nombre": "Electrodomésticos"
+}

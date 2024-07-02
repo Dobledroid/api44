@@ -1,0 +1,33 @@
+# Obtener el estado de cuenta por ID de usuario
+GET http://localhost:3001/api/estado-cuenta/1
+
+# Agregar un nuevo estado de cuenta
+POST http://localhost:3001/api/estado-cuenta
+Content-Type: application/json
+
+{
+    "estado": true,
+    "descripcion": "Activo"
+}
+
+# Eliminar un estado de cuenta por su ID
+DELETE http://localhost:3001/api/estado-cuenta/1
+
+# Actualizar un estado de cuenta por su ID
+PUT http://localhost:3001/api/estado-cuenta/1
+Content-Type: application/json
+
+{
+    "estado": false,
+    "descripcion": "Bloqueado"
+}
+
+
+
+### Actualizar un estado de cuenta por su ID
+PUT http://localhost:3001/api/desbloquearcuenta/1
+Content-Type: application/json
+
+{
+    "ID_estadoCuenta": 1
+}
