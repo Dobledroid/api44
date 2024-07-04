@@ -22,6 +22,8 @@ const router = Router();
 
 router.get("/users", authenticateJWT, getUsers);
 
+router.get("/users-jtw", getUsers);
+
 router.post("/users", createNewUser);
 router.post("/users-oauth", createNewUserOAuth);
 
