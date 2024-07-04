@@ -5,8 +5,8 @@ import {
   captureOrder,
   captureOrderMembresia,
   cancelPayment,
-  createOrderMembresiaActualizar,
-  captureOrderMembresiaActualizar
+//   createOrderMembresiaActualizar,
+//   captureOrderMembresiaActualizar
 } from "../controllers/paypal.controller.js";
 
 const router = Router();
