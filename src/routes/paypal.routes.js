@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {
-//   createOrder,
-//   createOrderMembresia,
-//   captureOrder,
-//   captureOrderMembresia,
-//   cancelPayment,
-//   createOrderMembresiaActualizar,
-//   captureOrderMembresiaActualizar
+  createOrder,
+  createOrderMembresia,
+  captureOrder,
+  captureOrderMembresia,
+  cancelPayment,
+  createOrderMembresiaActualizar,
+  captureOrderMembresiaActualizar
 } from "../controllers/paypal.controller.js";
 
 const router = Router();
