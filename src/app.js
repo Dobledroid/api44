@@ -15,7 +15,7 @@ import TokenRoutes from "./routes/token.routes";
 import emailRoutes from "./routes/email.routes";
 import sendMethod from "./routes/send.routes";
 import estadoCuentaRoutes from "./routes/estadoCuenta.routes";
-import paymentRoutes from "./routes/payment.routes.js";
+// import paymentRoutes from "./routes/payment.routes.js";
 import tiposMembresias from "./routes/tiposMembresias.routes.js";
 import membresiasUsuarios from "./routes/membresiasUsuarios.routes.js";
 import historialMembresias from "./routes/historialMembresias.routes.js";
@@ -37,7 +37,7 @@ import logsInicioSesion from "./routes/logsInicioSesion.routes.js";
 import logsInicioSesionOAuth from "./routes/logsInicioSesionOAuth.routes.js";
 
 //PAGOS
-import paypalRoutes from "./routes/paypal.routes.js";
+// import paypalRoutes from "./routes/paypal.routes.js";
 
 import morgan from "morgan";
 import helmet from 'helmet';
@@ -134,7 +134,7 @@ app.use("/api", categoriasProdutosRoutes);
 app.use("/api", subcategoriasProductosRoutes);
 app.use("/api", marcasProductos);
 app.use("/api", estadoCuentaRoutes);
-app.use("/api", paymentRoutes);
+// app.use("/api", paymentRoutes);
 app.use("/api", tiposMembresias);
 app.use("/api", membresiasUsuarios);
 app.use("/api", historialMembresias);
@@ -148,7 +148,7 @@ app.use("/api",preguntaRoutes);
 app.use("/api", ordenesPedidos);
 app.use("/api", detallesPedido);
 
-app.use("/api", paypalRoutes);
+// app.use("/api", paypalRoutes);
 
 // logs
 app.use("/api", logsActualizacionDatosSensibles);
