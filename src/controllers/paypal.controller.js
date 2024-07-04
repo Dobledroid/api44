@@ -17,8 +17,12 @@ import { crearQRMembresia } from "./QR.controller.js"
 
 import { updateItemQuantityByID_Orden } from "./products.controller.js";
 
-const userData = require('../utilidades/paypal_payment.js');
-const membresiaData = require('../utilidades/membresias_payment.js');
+// const userData = require('../utilidades/paypal_payment.js');
+import { setUserData_paypal, getUserData_paypal } from '../utilidades/paypal_payment.js';
+
+
+// const membresiaData = require('../utilidades/membresias_payment.js');
+import { setUserData_membresias, getUserData_membresias } from '../utilidades/membresias_payment.js';
 
 
 import axios from 'axios';
@@ -27,7 +31,7 @@ import axios from 'axios';
 
 export const createOrder = async (req, res) => {
   const { ID_usuario, total, currentURL, ID_direccion } = req.body;
-  userData.setUserData(ID_usuario, total, currentURL, ID_direccion);
+  setUserData_paypal(ID_usuario, total, currentURL, ID_direccion);
   try {
 
     const itemsResponse = await axios.get(`${HOST}/api/carrito-compras-ID-usuario/${ID_usuario}`);
@@ -124,7 +128,7 @@ export const captureOrder = async (req, res) => {
     // console.log("CAPTURE ORDER", response.data);
 
     if (response.data.status === 'COMPLETED') {
-      const datosCompra = userData.getUserData();
+      const datosCompra = getUserData_paypal();
       const fechaHoraActual = await obtenerFechaHoraActual();
 
       const ID_pedido = await addNewOrdenPedido({
@@ -198,7 +202,7 @@ export const captureOrder = async (req, res) => {
 
 export const createOrderMembresia = async (req, res) => {
   const { ID_usuario, total, currentURL, nombre, tipoMembresiaID, correo, ID_UnicoMembresia } = req.body;
-  membresiaData.setUserData(ID_usuario, total, currentURL, tipoMembresiaID, correo, ID_UnicoMembresia);
+  setUserData_membresias(ID_usuario, total, currentURL, tipoMembresiaID, correo, ID_UnicoMembresia);
   try {
     const order = {
       intent: "CAPTURE",
@@ -290,7 +294,7 @@ export const captureOrderMembresia = async (req, res) => {
     console.log("CAPTURE ORDER", response.data);
 
     if (response.data.status === 'COMPLETED') {
-      const datosCompra = membresiaData.getUserData();
+      const datosCompra = getUserData_membresias();
 
 
       const fechaHoraActual = await obtenerFechaHoraActual();
@@ -353,7 +357,7 @@ export const captureOrderMembresia = async (req, res) => {
 
 export const createOrderMembresiaActualizar = async (req, res) => {
   const { ID_membresiaUsuario, ID_usuario, total, currentURL, nombre, tipoMembresiaID, correo, ID_UnicoMembresia, fechaVencimiento } = req.body;
-  membresiaData.setUserData(ID_usuario, total, currentURL, tipoMembresiaID, correo, ID_UnicoMembresia, fechaVencimiento, ID_membresiaUsuario);
+  setUserData_membresias(ID_usuario, total, currentURL, tipoMembresiaID, correo, ID_UnicoMembresia, fechaVencimiento, ID_membresiaUsuario);
   try {
     const order = {
       intent: "CAPTURE",
@@ -444,7 +448,7 @@ export const captureOrderMembresiaActualizar = async (req, res) => {
     // console.log("CAPTURE ORDER", response.data);
 
     if (response.data.status === 'COMPLETED') {
-      const datosCompra = membresiaData.getUserData();
+      const datosCompra = getUserData_membresias();
 
       const fechaHoraActual = await obtenerFechaHoraActual();
 
