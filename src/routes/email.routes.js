@@ -3,12 +3,14 @@ import {
   sendRecoveryEmail,
   envioCorreoAccesoNoBloqueado, 
   envioCorreoCuentaBloqueada,
-  envioCorreoInicioSesion
+  envioCorreoInicioSesion,
+  validarIdentidad
 } from "../controllers/email.controller"; // Asegúrate de importar los controladores de usuarios
 
 const router = Router();
 
 router.post("/send-email", sendRecoveryEmail);
+router.post("/validar-identidad", validarIdentidad);
 router.post("/envio-cuenta-nobloqueada", envioCorreoAccesoNoBloqueado);
 router.post("/envio-cuenta-bloqueado", envioCorreoCuentaBloqueada);
 router.post("/envio-cuenta-nueva-sesion", envioCorreoInicioSesion);

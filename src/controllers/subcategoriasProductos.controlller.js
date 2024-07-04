@@ -6,7 +6,7 @@ export const getAllSubcategoriasProductos = async (req, res) => {
     const result = await pool.request().query(querysSubcategoriasProductos.getAllSubcategoriasProductos);
     res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -19,7 +19,7 @@ export const getSubcategoriaProductoById = async (req, res) => {
       .query(querysSubcategoriasProductos.getSubcategoriaProductoById);
     return res.json(result.recordset[0]);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -36,7 +36,7 @@ export const getSubcategoriasByCategoriaId = async (req, res) => {
 
     res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -58,7 +58,7 @@ export const addNewSubcategoriaProducto = async (req, res) => {
 
     res.json({ nombre, idCategoria });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -75,7 +75,7 @@ export const deleteSubcategoriaProductoById = async (req, res) => {
 
     return res.sendStatus(204);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -85,7 +85,7 @@ export const getTotalSubcategoriasProductos = async (req, res) => {
     const result = await pool.request().query(querysSubcategoriasProductos.getTotalSubcategoriasProductos);
     res.json(result.recordset[0][""]);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -107,6 +107,6 @@ export const updateSubcategoriaProductoById = async (req, res) => {
 
     res.json({ nombre, idCategoria });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };

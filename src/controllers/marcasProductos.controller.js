@@ -6,7 +6,7 @@ export const getAllMarcas = async (req, res) => {
     const result = await pool.request().query(querysMarcas.getAllMarcas);
     res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -20,7 +20,7 @@ export const getMarcaById = async (req, res) => {
       .query(querysMarcas.getMarcaById);
     res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -37,7 +37,7 @@ export const getMarcasByCategoriaId = async (req, res) => {
 
     res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -52,7 +52,7 @@ export const addNewMarca = async (req, res) => {
       .query(querysMarcas.addNewMarca);
     res.json({ message: 'Marca agregada correctamente' });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -67,7 +67,7 @@ export const deleteMarca = async (req, res) => {
       .query(querysMarcas.deleteMarca);
     res.json({ message: 'Marca eliminada correctamente' });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -78,7 +78,7 @@ export const getTotalMarcas = async (req, res) => {
     const result = await pool.request().query(querysMarcas.getTotalMarcas);
     res.json(result.recordset[0]['']);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -96,6 +96,6 @@ export const updateMarcaById = async (req, res) => {
       .query(querysMarcas.updateMarcaById);
     res.json({ message: 'Marca actualizada correctamente' });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };

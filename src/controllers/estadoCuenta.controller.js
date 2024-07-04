@@ -31,7 +31,7 @@ export const addNewEstadoCuenta = async (req, res) => {
       .query(querysEstadoCuenta.addNewEstadoCuenta);
     //res.json({ ID_usuario, estado, descripcion });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -45,7 +45,7 @@ export const deleteEstadoCuentaById = async (req, res) => {
     if (result.rowsAffected[0] === 0) return res.sendStatus(404);
     return res.sendStatus(204);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -66,7 +66,7 @@ export const updateEstadoCuentaById = async (req, res) => {
       .query(querysEstadoCuenta.updateEstadoCuentaById);
     res.json({ estado, descripcion });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -88,7 +88,7 @@ export const updateIntentosFallidos = async (req, res) => {
       .query(querysEstadoCuenta.updateIntentosFallidos);
     // return res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -110,7 +110,7 @@ export const bloquearCuenta = async (req, res) => {
     
     //res.json({ msg: "Cuenta bloqueada exitosamente" });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -128,6 +128,6 @@ export const desbloquearCuenta = async (req, res) => {
     
     //res.json({ msg: "Cuenta desbloqueada exitosamente." });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };

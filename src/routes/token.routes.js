@@ -4,7 +4,7 @@ import {
   createNewUserToken,
   validateToken,
   updateTokenById
-} from "../controllers/token.controller"; // Asegúrate de importar los controladores de usuarios
+} from "../controllers/token.controller";
 
 const router = Router();
 

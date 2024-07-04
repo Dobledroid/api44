@@ -6,7 +6,7 @@ export const getCategoriasProductos = async (req, res) => {
     const result = await pool.request().query(querysCategoriasProductos.getAllCategoriasProductos);
     res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -20,7 +20,7 @@ export const getCategoriaProductoById = async (req, res) => {
     return res.json(result.recordset[0]);
   } catch (error) {
     res.status(500);
-    res.send(error.message);
+    res.send(escapeHtml(error.message));
   }
 };
 
@@ -39,7 +39,7 @@ export const addNewCategoriaProducto = async (req, res) => {
       .query(querysCategoriasProductos.addNewCategoriaProducto);
     res.json({ nombre });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -53,7 +53,7 @@ export const deleteCategoriaProductoById = async (req, res) => {
     if (result.rowsAffected[0] === 0) return res.sendStatus(404);
     return res.sendStatus(204);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -63,7 +63,7 @@ export const getTotalCategoriasProductos = async (req, res) => {
     const result = await pool.request().query(querysCategoriasProductos.getTotalCategoriasProductos);
     res.json(result.recordset[0][""]);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
 
@@ -83,6 +83,6 @@ export const updateCategoriaProductoById = async (req, res) => {
       .query(querysCategoriasProductos.updateCategoriaProductoById);
     res.json({ nombre });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(escapeHtml(error.message));
   }
 };
