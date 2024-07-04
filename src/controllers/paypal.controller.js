@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import {
   PAYPAL_API,
   HOST,
@@ -19,6 +19,10 @@ import { updateItemQuantityByID_Orden } from "./products.controller.js";
 
 const userData = require('../utilidades/paypal_payment.js');
 const membresiaData = require('../utilidades/membresias_payment.js');
+
+
+const axios = require('axios');
+
 
 export const createOrder = async (req, res) => {
   const { ID_usuario, total, currentURL, ID_direccion } = req.body;
