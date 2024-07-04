@@ -21,7 +21,8 @@ const userData = require('../utilidades/paypal_payment.js');
 const membresiaData = require('../utilidades/membresias_payment.js');
 
 
-const axios = require('axios');
+import axios from 'axios';
+// const axios = require('axios');
 
 
 export const createOrder = async (req, res) => {
