@@ -37,7 +37,7 @@ import logsInicioSesion from "./routes/logsInicioSesion.routes.js";
 import logsInicioSesionOAuth from "./routes/logsInicioSesionOAuth.routes.js";
 
 //PAGOS
-// import paypalRoutes from "./routes/paypal.routes.js";
+import paypalRoutes from "./routes/paypal.routes.js";
 
 import morgan from "morgan";
 import helmet from 'helmet';
