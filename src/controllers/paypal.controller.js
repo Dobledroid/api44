@@ -21,7 +21,7 @@ const userData = require('../utilidades/paypal_payment.js');
 const membresiaData = require('../utilidades/membresias_payment.js');
 
 
-// import axios from 'axios';
+import axios from 'axios';
 // // const axios = require('axios');
 
 
