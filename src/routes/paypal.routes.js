@@ -2,9 +2,9 @@ import { Router } from "express";
 import {
   createOrder,
   createOrderMembresia,
-  captureOrder,
-  captureOrderMembresia,
-  cancelPayment,
+//   captureOrder,
+//   captureOrderMembresia,
+//   cancelPayment,
 //   createOrderMembresiaActualizar,
 //   captureOrderMembresiaActualizar
 } from "../controllers/paypal.controller.js";
