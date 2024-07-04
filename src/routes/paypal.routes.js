@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-router.post("/paypal/create-order", createOrder);
+// router.post("/paypal/create-order", createOrder);
 
 // router.post("/paypal/create-order-membresia", createOrderMembresia);
 // router.post("/paypal/create-order-membresia-actualizar", createOrderMembresiaActualizar);
