@@ -382,7 +382,7 @@ export const login_skill = async (req, res) => {
     const result = await pool
       .request()
       .input("correoElectronico", sql.VarChar, correoElectronico)
-      .query(querysUsers.getUserByEmail);
+      .query(querysUsers.getUserByEmail_smartwatch);
 
     if (result.recordset.length === 0) {
       return res.status(401).json({ msg: "Correo electrónico o contraseña no válidos." });

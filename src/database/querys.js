@@ -125,6 +125,9 @@ export const querysUsers = {
   getTotalUsers: "SELECT COUNT(*) FROM Usuarios",
   updateUserById: "UPDATE Usuarios SET nombre = @nombre, primerApellido = @primerApellido, segundoApellido = @segundoApellido, direccion = @direccion, correoElectronico = @correoElectronico, contraseña = @contraseña, telefono = @telefono, fechaNacimiento = @fechaNacimiento, genero = @genero WHERE ID_usuario = @IdUsuario",
   getUserByEmail: "SELECT * FROM Credenciales WHERE correoElectronico = @correoElectronico;",
+  getUserByEmail_smartwatch: `SELECT cre.*, usu.nombre FROM Credenciales cre
+INNER JOIN Usuarios usu ON usu.ID_usuario = cre.ID_usuario
+WHERE correoElectronico = @correoElectronico;`,
   getUserByTelephone: "SELECT * FROM Usuarios WHERE telefono = @telefono;",
   updatePasswordById: "UPDATE Credenciales SET contraseña = @contraseña WHERE ID_usuario = @IdUsuario;",
   login: "SELECT * FROM Credenciales WHERE correoElectronico = @correoElectronico AND contraseña = @contraseña;",

@@ -44,12 +44,11 @@ import { config } from "dotenv";
 config();
 
 export default {
-  port: process.env.PORT || 4000,
-  dbUser: process.env.DB_USER || "carlos",
-  dbPassword: process.env.DB_PASSWORD || "carlos",
-  dbServer: process.env.DB_SERVER || "localhost",
-  dbDatabase: process.env.DB_DATABASE || "SportGYM",
-  MESSAGE: process.env.MESSAGE || "API",
+  port: process.env.PORT,
+  dbUser: process.env.DB_USER,
+  dbPassword: process.env.DB_PASSWORD,
+  dbServer: process.env.DB_SERVER,
+  dbDatabase: process.env.DB_DATABASE,
 };
 
 export const PAYPAL_API_CLIENT = process.env.PAYPAL_API_CLIENT || "AeOX3LTg_2aOey2JAkmaCXnq8Dlgb62O0ugbBJ0pCxSOGRYj7l735jEdwnKDdiscr8Si3PvllbtN28sK";
