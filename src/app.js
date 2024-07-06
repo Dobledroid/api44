@@ -39,6 +39,11 @@ import logsInicioSesionOAuth from "./routes/logsInicioSesionOAuth.routes.js";
 //PAGOS
 import paypalRoutes from "./routes/paypal.routes.js";
 
+//SMARTWACHT
+import smartwatchUserRoutes from "./routes/SmartwatchUser.routes.js";
+import smartwatchMetricsRoutes from "./routes/SmartwatchMetrics.routes.js";
+
+
 import morgan from "morgan";
 import helmet from 'helmet';
 
@@ -155,5 +160,9 @@ app.use("/api", logsActualizacionDatosSensibles);
 app.use("/api", logsBloqueoInicioSesion);
 app.use("/api", logsInicioSesion);
 app.use("/api", logsInicioSesionOAuth);
+
+//Smartwacht
+app.use("/api", smartwatchUserRoutes);
+app.use("/api", smartwatchMetricsRoutes);
 
 export { app };

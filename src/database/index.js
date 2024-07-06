@@ -7,3 +7,7 @@ export { querysMarcas } from "./querys";
 export { querysEstadoCuenta } from "./querys";
 export { querysEstadoUsuario } from "./querys";
 export { querysRoles } from "./querys";
+
+
+export { querysSmartwatchUser } from "./querys";
+export { querysSmartwatchMetrics } from "./querys";

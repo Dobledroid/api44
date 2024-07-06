@@ -197,3 +197,29 @@ export const querysRoles = {
   updateRolById: "UPDATE Roles SET rol = @rol WHERE ID_Rol = @ID_Rol;",
 };
 
+
+export const querysSmartwatchUser = {
+  getAllSmartwatchUsers: "SELECT * FROM SmartwatchUser",
+  getSmartwatchUserById: "SELECT * FROM SmartwatchUser WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch",
+  addNewSmartwatchUser: `
+    INSERT INTO SmartwatchUser (ID_usuario, genero, nacido, altura, peso) 
+    VALUES (@ID_usuario, @genero, @nacido, @altura, @peso);
+    SELECT SCOPE_IDENTITY() AS ID_usuarioSmartWatch;
+  `,  
+  deleteSmartwatchUser: "DELETE FROM SmartwatchUser WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch",
+  updateSmartwatchUserById: "UPDATE SmartwatchUser SET genero = @genero, nacido = @nacido, altura = @altura, peso = @peso WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch",
+};
+
+
+export const querysSmartwatchMetrics = {
+  getAllSmartwatchMetrics: "SELECT * FROM SmartwatchMetrics",
+  getSmartwatchMetricsById: "SELECT * FROM SmartwatchMetrics WHERE ID_metric = @IdMetric",
+  addNewSmartwatchMetrics: `
+    INSERT INTO SmartwatchMetrics (ID_usuarioSmartWatch, pasos, distancia, calorias_quemadas, frecuencia_cardiaca, saturacion_oxigeno, fecha) 
+    VALUES (@ID_usuarioSmartWatch, @pasos, @distancia, @calorias_quemadas, @frecuencia_cardiaca, @saturacion_oxigeno, @fecha);
+    SELECT SCOPE_IDENTITY() AS ID_metric;
+  `,  
+  deleteSmartwatchMetrics: "DELETE FROM SmartwatchMetrics WHERE ID_metric = @IdMetric",
+  updateSmartwatchMetricsById: "UPDATE SmartwatchMetrics SET pasos = @pasos, distancia = @distancia, calorias_quemadas = @calorias_quemadas, frecuencia_cardiaca = @frecuencia_cardiaca, saturacion_oxigeno = @saturacion_oxigeno, fecha = @fecha WHERE ID_metric = @IdMetric",
+  getSmartwatchMetricsByUserId: "SELECT * FROM SmartwatchMetrics WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch",
+};
