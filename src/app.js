@@ -165,4 +165,6 @@ app.use("/api", logsInicioSesionOAuth);
 app.use("/api", smartwatchUserRoutes);
 app.use("/api", smartwatchMetricsRoutes);
 
+//Nuevo cambio
+
 export { app };
