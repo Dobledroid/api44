@@ -200,7 +200,10 @@ export const querysRoles = {
 
 export const querysSmartwatchUser = {
   getAllSmartwatchUsers: "SELECT * FROM SmartwatchUser",
-  getSmartwatchUserById: "SELECT * FROM SmartwatchUser WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch",
+  getSmartwatchUserById: `
+  SELECT sm.*, us.nombre FROM SmartwatchUser sm
+INNER JOIN Usuarios us ON us.ID_usuario = sm.ID_usuario
+WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch`,
   addNewSmartwatchUser: `
     INSERT INTO SmartwatchUser (ID_usuario, genero, nacido, altura, peso) 
     VALUES (@ID_usuario, @genero, @nacido, @altura, @peso);
