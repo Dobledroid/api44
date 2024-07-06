@@ -5,7 +5,7 @@ import {
   getSmartwatchUserById,
   updateSmartwatchUserById,
   deleteSmartwatchUserById,
-} from "../controllers/smartwatchUser.controller";
+} from "../controllers/SmartwatchUser.controller";
 
 const router = Router();
 
