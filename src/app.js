@@ -41,7 +41,6 @@ import paypalRoutes from "./routes/paypal.routes.js";
 
 //SMARTWACHT
 import smartwatchUserRoutes from "./routes/SmartwatchUser.routes.js";
-import smartwatchMetricsRoutes from "./routes/SmartwatchMetrics.routes.js";
 
 
 import morgan from "morgan";
@@ -163,7 +162,6 @@ app.use("/api", logsInicioSesionOAuth);
 
 //Smartwacht
 app.use("/api", smartwatchUserRoutes);
-app.use("/api", smartwatchMetricsRoutes);
 
 //Nuevo cambio
 
