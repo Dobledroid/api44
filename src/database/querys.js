@@ -223,6 +223,15 @@ export const querysSmartwatchMetrics = {
     SELECT SCOPE_IDENTITY() AS ID_metric;
   `,  
   deleteSmartwatchMetrics: "DELETE FROM SmartwatchMetrics WHERE ID_metric = @IdMetric",
-  updateSmartwatchMetricsById: "UPDATE SmartwatchMetrics SET pasos = @pasos, distancia = @distancia, calorias_quemadas = @calorias_quemadas, frecuencia_cardiaca = @frecuencia_cardiaca, saturacion_oxigeno = @saturacion_oxigeno, fecha = @fecha WHERE ID_metric = @IdMetric",
+  updateSmartwatchMetricsById: `
+    UPDATE SmartwatchMetrics 
+    SET pasos = @pasos, distancia = @distancia, calorias_quemadas = @calorias_quemadas, frecuencia_cardiaca = @frecuencia_cardiaca, saturacion_oxigeno = @saturacion_oxigeno, fecha = @fecha 
+    WHERE ID_metric = @IdMetric
+  `,
   getSmartwatchMetricsByUserId: "SELECT * FROM SmartwatchMetrics WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch",
+  updateHeartRateByUserId: `
+    UPDATE SmartwatchMetrics 
+    SET frecuencia_cardiaca = @frecuencia_cardiaca, fecha = @fecha 
+    WHERE ID_usuarioSmartWatch = @ID_usuarioSmartWatch
+  `
 };
