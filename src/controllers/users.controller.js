@@ -339,7 +339,7 @@ export const login = async (req, res) => {
         const estadoCuentaBloqueadaResponse = await getEstadoCuentaByUserId(user.ID_usuario);
         const estadoCuentaBloqueada = estadoCuentaBloqueadaResponse[0];
 
-        await addNewLogBloqueoInicioSesion({ body: { CorreoElectronico: user.correoElectronico } })
+        // await addNewLogBloqueoInicioSesion({ body: { CorreoElectronico: user.correoElectronico } })
 
         await enviarCorreoBloqueado({ body: { tiempoBloqueo: estadoCuentaBloqueada.tiempoDesbloqueo, email: user.correoElectronico } });
         return res.status(401).json({ msg: `La cuenta está bloqueada debido a múltiples intentos fallidos de inicio de sesión. Debes esperar ${tiempoBloqueoMinutos} minutos.` });

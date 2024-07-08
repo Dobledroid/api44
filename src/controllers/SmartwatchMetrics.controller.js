@@ -105,3 +105,25 @@ export const getSmartwatchMetricsByUserId = async (req, res) => {
     res.send(error.message);
   }
 };
+
+export const updateHeartRateByUserId = async (req, res) => {
+  const { frecuencia_cardiaca, fecha } = req.body;
+  const { userId } = req.params;
+
+  if (!frecuencia_cardiaca || !fecha) {
+    return res.status(400).json({ msg: "Por favor complete todos los campos." });
+  }
+
+  try {
+    const pool = await getConnection();
+    await pool
+      .request()
+      .input("ID_usuarioSmartWatch", sql.Int, userId)
+      .input("frecuencia_cardiaca", sql.Int, frecuencia_cardiaca)
+      .input("fecha", sql.Date, fecha)
+      .query(querysSmartwatchMetrics.updateHeartRateByUserId);
+    return res.status(200).json({ msg: "Frecuencia cardíaca actualizada exitosamente." });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};

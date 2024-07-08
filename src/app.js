@@ -155,10 +155,10 @@ app.use("/api", detallesPedido);
 // app.use("/api", paypalRoutes);
 
 // logs
-app.use("/api", logsActualizacionDatosSensibles);
-app.use("/api", logsBloqueoInicioSesion);
-app.use("/api", logsInicioSesion);
-app.use("/api", logsInicioSesionOAuth);
+// app.use("/api", logsActualizacionDatosSensibles);
+// app.use("/api", logsBloqueoInicioSesion);
+// app.use("/api", logsInicioSesion);
+// app.use("/api", logsInicioSesionOAuth);
 
 //Smartwacht
 app.use("/api", smartwatchUserRoutes);
