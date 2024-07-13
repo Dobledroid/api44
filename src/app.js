@@ -164,6 +164,6 @@ app.use("/api", detallesPedido);
 app.use("/api", smartwatchUserRoutes);
 app.use("/api", smartwatchMetricsRoutes);
 
-//Nuevo cambio
+//Nuevo cambio OSMAR 13/07/24
 
 export { app };
