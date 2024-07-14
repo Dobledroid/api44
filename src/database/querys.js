@@ -423,3 +423,30 @@ export const querysSmartwatchMetrics = {
     WHERE ID_usuarioSmartWatch = @ID_usuarioSmartWatch
   `
 };
+
+
+export const querysRecordatoriosUsuarios = {
+  // Obtener todos los recordatorios de usuarios
+  getAllRecordatoriosUsuarios: "SELECT * FROM RecordatoriosUsuarios",
+
+  // Obtener recordatorios de un usuario por ID
+  getRecordatoriosUsuariosById: `
+    SELECT ru.*, us.nombre FROM RecordatoriosUsuarios ru
+    INNER JOIN Usuarios us ON us.ID_usuario = ru.ID_usuario
+    WHERE ru.ID_usuario = @ID_usuario`,
+
+  // Añadir un nuevo recordatorio para un usuario
+  addNewRecordatorioUsuario: `
+    INSERT INTO RecordatoriosUsuarios (ID_usuario, tipoEntrenamiento, horaRecordatorio, fechaRecordatorio, fechaCreacion) 
+    VALUES (@ID_usuario, @tipoEntrenamiento, @horaRecordatorio, @fechaRecordatorio, @fechaCreacion);
+    SELECT SCOPE_IDENTITY() AS ID_recordatorio;`,
+
+  // Eliminar un recordatorio por ID
+  deleteRecordatorioUsuario: "DELETE FROM RecordatoriosUsuarios WHERE ID_recordatorio = @ID_recordatorio",
+
+  // Actualizar un recordatorio por ID
+  updateRecordatorioUsuarioById: `
+    UPDATE RecordatoriosUsuarios 
+    SET tipoEntrenamiento = @tipoEntrenamiento, horaRecordatorio = @horaRecordatorio, fechaRecordatorio = @fechaRecordatorio 
+    WHERE ID_recordatorio = @ID_recordatorio`,
+};

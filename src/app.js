@@ -43,6 +43,9 @@ import paypalRoutes from "./routes/paypal.routes.js";
 import smartwatchUserRoutes from "./routes/SmartwatchUser.routes.js";
 import smartwatchMetricsRoutes from "./routes/smartwatchMetrics.routes.js";
 
+//ALEXA
+import recordatoriosRoutes from "./routes/RecordatoriosUsuarios.routes.js";
+
 import morgan from "morgan";
 import helmet from 'helmet';
 
@@ -163,6 +166,9 @@ app.use("/api", detallesPedido);
 //Smartwacht
 app.use("/api", smartwatchUserRoutes);
 app.use("/api", smartwatchMetricsRoutes);
+
+//RECORDATORIOS
+app.use("/api", recordatoriosRoutes);
 
 //Nuevo cambio OSMAR 13/07/24
 
