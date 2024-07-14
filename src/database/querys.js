@@ -184,7 +184,11 @@ export const querysMembresiasUsuarios = {
   existeUnaMembresiaUsuarioByID: "SELECT TOP 1 ID_membresiaUsuario, COUNT(*) AS existeRegistro FROM MembresiasUsuarios WHERE ID_membresiaUsuario = @ID_membresiaUsuario GROUP BY ID_membresiaUsuario;",
   existeUnaMembresiaUsuarioByIDMembresiaTodo: `SELECT MU.*, TM.nombre, TM.costo FROM MembresiasUsuarios MU 
   INNER JOIN TiposMembresia TM ON MU.ID_tipoMembresia = TM.ID_tipoMembresia
-  WHERE ID_membresiaUsuario = @ID_membresiaUsuario;`
+  WHERE ID_membresiaUsuario = @ID_membresiaUsuario;`,
+  detalleMembresiaSkill: `
+    SELECT * FROM MembresiasUsuarios mu
+    INNER JOIN TiposMembresia tm ON mu.ID_tipoMembresia = tm.ID_tipoMembresia
+    WHERE ID_membresiaUsuario = @ID_membresiaUsuario`
 };
 
 export const querysHistorialMembresias = {

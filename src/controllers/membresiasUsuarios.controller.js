@@ -211,3 +211,21 @@ export const existeUnaMembresiaUsuarioByIDMembresiaTodo = async (req, res) => {
     res.status(500).json({ error: 'Error al verificar la existencia del producto en el carrito' }); // Enviar error al cliente
   }
 };
+
+export const getDetalleMembresiaSkill = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("ID_membresiaUsuario", sql.Int, req.params.id)
+      .query(querysMembresiasUsuarios.detalleMembresiaSkill);
+    
+    if (result.recordset.length > 0) {
+      res.json(result.recordset[0]);
+    } else {
+      res.status(404).json({ message: 'No se encontró la membresía.' });
+    }
+  } catch (error) {
+    res.status(500).send(escapeHtml(error.message));
+  }
+};
