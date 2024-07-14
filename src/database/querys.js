@@ -449,4 +449,6 @@ export const querysRecordatoriosUsuarios = {
     UPDATE RecordatoriosUsuarios 
     SET tipoEntrenamiento = @tipoEntrenamiento, horaRecordatorio = @horaRecordatorio, fechaRecordatorio = @fechaRecordatorio 
     WHERE ID_recordatorio = @ID_recordatorio`,
+    
+    getAllRecordatoriosByUserId: "SELECT * FROM RecordatoriosUsuarios WHERE ID_usuario = @ID_usuario"
 };

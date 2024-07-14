@@ -50,6 +50,21 @@ export const getRecordatoriosUsuariosById = async (req, res) => {
   }
 };
 
+export const getAllRecordatoriosByUserId = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("ID_usuario", sql.NVarChar, req.params.id)
+      .query(querysRecordatoriosUsuarios.getAllRecordatoriosByUserId);
+    return res.status(200).json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+
 export const updateRecordatorioUsuarioById = async (req, res) => {
   const { tipoEntrenamiento, horaRecordatorio, fechaRecordatorio } = req.body;
   if (!tipoEntrenamiento || !horaRecordatorio || !fechaRecordatorio) {
