@@ -217,7 +217,7 @@ export const getDetalleMembresiaSkill = async (req, res) => {
     const pool = await getConnection();
     const result = await pool
       .request()
-      .input("ID_membresiaUsuario", sql.Int, req.params.id)
+      .input("ID_usuario", sql.Int, req.params.id)
       .query(querysMembresiasUsuarios.detalleMembresiaSkill);
     
     if (result.recordset.length > 0) {

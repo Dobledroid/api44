@@ -188,7 +188,7 @@ export const querysMembresiasUsuarios = {
   detalleMembresiaSkill: `
     SELECT * FROM MembresiasUsuarios mu
     INNER JOIN TiposMembresia tm ON mu.ID_tipoMembresia = tm.ID_tipoMembresia
-    WHERE ID_membresiaUsuario = @ID_membresiaUsuario`
+    WHERE ID_usuario = @ID_usuario`
 };
 
 export const querysHistorialMembresias = {
