@@ -456,3 +456,24 @@ export const querysRecordatoriosUsuarios = {
     
     getAllRecordatoriosByUserId: "SELECT * FROM RecordatoriosUsuarios WHERE ID_usuario = @ID_usuario"
 };
+
+
+export const querysEntradasMiembros = {
+  getAllEntradasMiembros: "SELECT * FROM entradasMiembros",
+  getEntradasMiembrosById: `
+    SELECT em.*, us.nombre FROM entradasMiembros em
+    INNER JOIN Usuarios us ON us.ID_usuario = em.ID_usuario
+    WHERE ID_entrada = @IdEntrada`,
+  getEntradasMiembrosByUsuarioId: `
+    SELECT * FROM entradasMiembros WHERE ID_usuario = @ID_usuario`,
+  addNewEntradasMiembros: `
+    INSERT INTO entradasMiembros (ID_usuario, fechaEntrada) 
+    VALUES (@ID_usuario, @fechaEntrada);
+    SELECT SCOPE_IDENTITY() AS ID_entrada;
+  `,
+  deleteEntradasMiembros: "DELETE FROM entradasMiembros WHERE ID_entrada = @IdEntrada",
+  updateEntradasMiembrosById: `
+    UPDATE entradasMiembros 
+    SET ID_usuario = @ID_usuario, fechaEntrada = @fechaEntrada 
+    WHERE ID_entrada = @IdEntrada`,
+};

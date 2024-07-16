@@ -29,5 +29,6 @@ export { querysImagenesProducto } from "./querys";
 
 export { querysSmartwatchUser } from "./querys";
 export { querysSmartwatchMetrics } from "./querys";
+export { querysEntradasMiembros  } from "./querys";
 
 export { querysRecordatoriosUsuarios } from "./querys";

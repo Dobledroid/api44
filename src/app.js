@@ -42,6 +42,7 @@ import paypalRoutes from "./routes/paypal.routes.js";
 //SMARTWACHT
 import smartwatchUserRoutes from "./routes/SmartwatchUser.routes.js";
 import smartwatchMetricsRoutes from "./routes/smartwatchMetrics.routes.js";
+import entradasMIembrosSmartwatchRoutes from "./routes/EntradasMiembros.routes.js";
 
 //ALEXA
 import recordatoriosRoutes from "./routes/RecordatoriosUsuarios.routes.js";
@@ -166,6 +167,7 @@ app.use("/api", detallesPedido);
 //Smartwacht
 app.use("/api", smartwatchUserRoutes);
 app.use("/api", smartwatchMetricsRoutes);
+app.use("/api", entradasMIembrosSmartwatchRoutes);
 
 //RECORDATORIOS
 app.use("/api", recordatoriosRoutes);
