@@ -5,7 +5,7 @@ import cors from "cors";
 import passport from 'passport';
 // import './passport-config';
 // import requestIp from 'request-ip';
-
+import payment_stripe from "./routes/payment_stripe.routes.js"
 import productRoutes from "./routes/products.routes";
 import usersRoutes from "./routes/users.routes";
 import categoriasProdutosRoutes from "./routes/categoriasProductos.routes";
@@ -171,6 +171,7 @@ app.use("/api", entradasMIembrosSmartwatchRoutes);
 
 //RECORDATORIOS
 app.use("/api", recordatoriosRoutes);
+app.use("/api", payment_stripe);
 
 //Nuevo cambio OSMAR 13/07/24
 
