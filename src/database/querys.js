@@ -477,3 +477,13 @@ export const querysEntradasMiembros = {
     SET ID_usuario = @ID_usuario, fechaEntrada = @fechaEntrada 
     WHERE ID_entrada = @IdEntrada`,
 };
+
+export const querysFiltros = {
+  filtrarFiltros: `
+    EXEC FiltrarFiltros @ID_categoria, @ID_marca, @ID_subcategoria
+  `,
+  getListProductsWithImagenPrincipal: `
+    EXEC GetFilteredProductsWithImage @ID_categoria, @ID_subcategoria, @ID_marca
+  `
+};
+

@@ -30,6 +30,8 @@ import preguntaRoutes from "./routes/pregunta.routes.js";
 import ordenesPedidos from "./routes/ordenesPedidos.routes.js";
 import detallesPedido from "./routes/detallesPedido.routes.js";
 
+import filtrosController from "./routes/FiltrosRoutes.js";
+
 // LOGS
 import logsActualizacionDatosSensibles from "./routes/logsActualizacionDatosSensibles.routes.js";
 import logsBloqueoInicioSesion from "./routes/logsBloqueoInicioSesion.routes.js";
@@ -155,6 +157,8 @@ app.use("/api", QRRoutes);
 app.use("/api",preguntaRoutes);
 app.use("/api", ordenesPedidos);
 app.use("/api", detallesPedido);
+
+app.use("/api", filtrosController);
 
 // app.use("/api", paypalRoutes);
 

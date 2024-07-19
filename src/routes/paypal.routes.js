@@ -1,5 +1,5 @@
 import { Router } from "express";
-// import {
+import {
 //   createOrder,
 //   createOrderMembresia,
 //   captureOrder,
@@ -7,7 +7,7 @@ import { Router } from "express";
 //   cancelPayment,
 //   createOrderMembresiaActualizar,
 //   captureOrderMembresiaActualizar
-// } from "../controllers/paypal.controller.js";
+} from "../controllers/paypal.controller.js";
 
 const router = Router();
 

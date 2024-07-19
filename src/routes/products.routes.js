@@ -46,7 +46,7 @@ router.get("/products", getProducts);
 
 router.get("/list-products", getListProductsWithImagen);
 
-router.get("/list-products-imagenPrincipal", getListProductsWithImagenPrincipal);
+// router.get("/list-products-imagenPrincipal", getListProductsWithImagenPrincipal);
 router.get("/list-products-imagenPrincipal-admin", getListProductsWithImagenPrincipalAdmin);
 
 router.get("/products/relations", getAllProductsWithRelations);

@@ -32,3 +32,6 @@ export { querysSmartwatchMetrics } from "./querys";
 export { querysEntradasMiembros  } from "./querys";
 
 export { querysRecordatoriosUsuarios } from "./querys";
+
+
+export { querysFiltros } from "./querys";
