@@ -35,3 +35,5 @@ export { querysRecordatoriosUsuarios } from "./querys";
 
 
 export { querysFiltros } from "./querys";
+
+export { querysResenas } from "./querys";

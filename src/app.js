@@ -31,6 +31,7 @@ import ordenesPedidos from "./routes/ordenesPedidos.routes.js";
 import detallesPedido from "./routes/detallesPedido.routes.js";
 
 import filtrosController from "./routes/FiltrosRoutes.js";
+import reseñasRoutes from "./routes/reseñas.routes.js";
 
 // LOGS
 import logsActualizacionDatosSensibles from "./routes/logsActualizacionDatosSensibles.routes.js";
@@ -159,6 +160,9 @@ app.use("/api", ordenesPedidos);
 app.use("/api", detallesPedido);
 
 app.use("/api", filtrosController);
+
+
+app.use("/api", reseñasRoutes);
 
 // app.use("/api", paypalRoutes);
 

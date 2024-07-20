@@ -43,22 +43,22 @@
 import { config } from "dotenv";
 config();
 
-//export default {
-//  port: process.env.PORT,
-//  dbUser: process.env.DB_USER,
-//  dbPassword: process.env.DB_PASSWORD,
-//  dbServer: process.env.DB_SERVER,
-//  dbDatabase: process.env.DB_DATABASE,
-//};
-
 export default {
-port: 4000,
-dbUser: "sqlserver",
-dbPassword: "SportGYM",
-dbServer: "SportGYM.mssql.somee.com",
-dbDatabase: "SportGYM",
-STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || 'sk_test_51PdbM8Hh07ihkU0MZKqwJewQxLstyyVZv5WMKNf53BfoOlf3baObdLdbvDrC5TPu3VsxTAL6ETzM3tHFYqZmnNtS00tjwnKNnS',
- };
+ port: process.env.PORT,
+ dbUser: process.env.DB_USER,
+ dbPassword: process.env.DB_PASSWORD,
+ dbServer: process.env.DB_SERVER,
+ dbDatabase: process.env.DB_DATABASE,
+};
+
+// export default {
+// port: 4000,
+// dbUser: "sqlserver",
+// dbPassword: "SportGYM",
+// dbServer: "SportGYM.mssql.somee.com",
+// dbDatabase: "SportGYM",
+// STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || 'sk_test_51PdbM8Hh07ihkU0MZKqwJewQxLstyyVZv5WMKNf53BfoOlf3baObdLdbvDrC5TPu3VsxTAL6ETzM3tHFYqZmnNtS00tjwnKNnS',
+//  };
 
 export const PAYPAL_API_CLIENT = process.env.PAYPAL_API_CLIENT || "AeOX3LTg_2aOey2JAkmaCXnq8Dlgb62O0ugbBJ0pCxSOGRYj7l735jEdwnKDdiscr8Si3PvllbtN28sK";
 export const PAYPAL_API_SECRET = process.env.PAYPAL_API_SECRET || "EE86KLsR4SvytkNIrVSstK-vBC60Yl4f7BdUAyBpINIbZNM9Z3DC6o9caDugnVDxjiZ8QhwiuV3oiIWe";

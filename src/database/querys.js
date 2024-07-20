@@ -487,3 +487,18 @@ export const querysFiltros = {
   `
 };
 
+
+export const querysResenas = {
+  getAllResenas: "SELECT * FROM Reseñas",
+  getResenasByProducto: `
+    SELECT re.*, usu.nombre 
+    FROM Reseñas re
+    INNER JOIN Usuarios usu ON usu.ID_usuario = re.ID_usuario
+    WHERE re.ID_producto = @ID_producto
+  `,
+  addNewResena: "INSERT INTO Reseñas (ID_usuario, ID_producto, calificacion, comentario, fechaReseña) VALUES (@ID_usuario, @ID_producto, @calificacion, @comentario, @fechaResena);",
+  getResenaById: "SELECT * FROM Reseñas WHERE ID_resena = @ID_resena",
+  deleteResenaById: "DELETE FROM Reseñas WHERE ID_resena = @ID_resena",
+  updateResenaById: "UPDATE Reseñas SET ID_usuario = @ID_usuario, ID_producto = @ID_producto, calificacion = @calificacion, comentario = @comentario, fechaResena = @fechaResena WHERE ID_resena = @ID_resena"
+};
+
