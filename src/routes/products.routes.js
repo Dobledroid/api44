@@ -11,7 +11,8 @@ import {
   getListProductsWithImagenPrincipal,
   getProductByIdWithImagens,
   getListProductsWithImagenPrincipalAdmin,
-  createNewProductCrear
+  createNewProductCrear,
+  getProductByIdEditar
 } from "../controllers/products.controller";
 
 import { v2 as cloudinary } from 'cloudinary';
@@ -57,12 +58,13 @@ router.post("/products", upload.array('images', 10), createNewProduct);
 router.get("/products/count", getTotalProducts);
 
 router.get("/products/:id", getProductById);
+router.get("/products-editar/:id", getProductByIdEditar);
 
 router.get("/products-with-imagens/:id", getProductByIdWithImagens);
 
 router.delete("/products/:id", deleteProductById);
 
-router.put("/products/:id", updateProductById);
+router.put("/products/:id", upload.array('images', 10), updateProductById);
 
 
 

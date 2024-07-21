@@ -29,6 +29,9 @@ export const querys = {
     WHERE rn = 1
   `,
   getProductById: "SELECT * FROM Productos WHERE ID_producto = @IdProducto",
+  getEditarProductById: `  SELECT * FROM Productos p
+  INNER JOIN ImagenesProducto ip ON ip.ID_producto = p.ID_producto 
+  WHERE p.ID_producto = @ID_producto`,
   getProductByIdWithImagens: `SELECT Productos.*, ImagenesProducto.imagenUrl
   FROM Productos
   JOIN ImagenesProducto ON Productos.ID_producto = ImagenesProducto.ID_producto
@@ -388,6 +391,7 @@ export const querysImagenesProducto = {
   addNewImagen: `INSERT INTO ImagenesProducto (ID_producto, imagenUrl) VALUES (@ID_producto, @imagenUrl);`,
   getImagenesByProductoId: `SELECT * FROM ImagenesProducto WHERE ID_producto = @ID_producto; `,
   deleteImagenById: ` DELETE FROM ImagenesProducto WHERE ID_imagen = @ID_imagen;`,
+  deleteImagenesByProductoId: ` DELETE FROM ImagenesProducto WHERE ID_producto = @ID_producto;`,
   updateImagenById: `UPDATE ImagenesProducto SET imagenUrl = @imagenUrl WHERE ID_imagen = @ID_imagen;`,
 };
 export const querysSmartwatchUser = {
