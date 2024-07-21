@@ -32,6 +32,8 @@ import detallesPedido from "./routes/detallesPedido.routes.js";
 
 import filtrosController from "./routes/FiltrosRoutes.js";
 import reseñasRoutes from "./routes/reseñas.routes.js";
+import favoritosRoutes from "./routes/favoritos.routes.js";
+
 
 // LOGS
 import logsActualizacionDatosSensibles from "./routes/logsActualizacionDatosSensibles.routes.js";
@@ -163,6 +165,7 @@ app.use("/api", filtrosController);
 
 
 app.use("/api", reseñasRoutes);
+app.use("/api", favoritosRoutes);
 
 // app.use("/api", paypalRoutes);
 

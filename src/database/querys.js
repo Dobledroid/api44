@@ -502,3 +502,16 @@ export const querysResenas = {
   updateResenaById: "UPDATE Reseñas SET ID_usuario = @ID_usuario, ID_producto = @ID_producto, calificacion = @calificacion, comentario = @comentario, fechaResena = @fechaResena WHERE ID_resena = @ID_resena"
 };
 
+
+
+export const querysFavoritos = {
+  getAllFavoritos: "SELECT * FROM ProductosFavoritos",
+  getFavoritosByUsuario: "SELECT * FROM ProductosFavoritos WHERE ID_usuario = @ID_usuario",
+  addNuevoFavorito: "INSERT INTO ProductosFavoritos (ID_usuario, ID_producto, fechaAgregado) VALUES (@ID_usuario, @ID_producto, @fechaAgregado);",
+  getFavoritoById: "SELECT * FROM ProductosFavoritos WHERE ID_favorito = @ID_favorito",
+  deleteFavoritoById: "DELETE FROM ProductosFavoritos WHERE ID_favorito = @ID_favorito",
+  updateFavoritoById: "UPDATE ProductosFavoritos SET ID_usuario = @ID_usuario, ID_producto = @ID_producto, fechaAgregado = @fechaAgregado WHERE ID_favorito = @ID_favorito",
+  isFavorito: "SELECT * FROM ProductosFavoritos WHERE ID_usuario = @ID_usuario AND ID_producto = @ID_producto",
+  getCantidadFavoritosByUsuario: "SELECT COUNT(*) AS cantidad FROM ProductosFavoritos WHERE ID_usuario = @ID_usuario",
+  getFavoritosPorUsuario: "EXEC spGetFavoritosPorUsuario @ID_usuario",
+};
