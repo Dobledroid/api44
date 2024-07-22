@@ -39,3 +39,6 @@ export { querysFiltros } from "./querys";
 export { querysResenas } from "./querys";
 
 export { querysFavoritos } from "./querys";
+
+
+export { querysTokensAlexa } from "./querys";

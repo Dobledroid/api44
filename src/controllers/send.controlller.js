@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const baseURL = process.env.BASE_URL;
+console.log("baseURL", baseURL)
 
 export const sendMethod = async (req, res) => {
   const { method, email } = req.body;

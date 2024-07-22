@@ -519,3 +519,20 @@ export const querysFavoritos = {
   getCantidadFavoritosByUsuario: "SELECT COUNT(*) AS cantidad FROM ProductosFavoritos WHERE ID_usuario = @ID_usuario",
   getFavoritosPorUsuario: "EXEC spGetFavoritosPorUsuario @ID_usuario",
 };
+
+
+export const querysTokensAlexa = {
+  getAllTokens: "SELECT * FROM Tokens",
+  getTokensByUsuario: "SELECT * FROM Tokens WHERE ID_usuario = @ID_usuario",
+  addNuevoToken: `
+    INSERT INTO Tokens (ID_usuario, fechaGeneracion, token) 
+    VALUES (@ID_usuario, @fechaGeneracion, @token);
+  `,
+  getTokenById: "SELECT * FROM Tokens WHERE ID_token = @ID_token",
+  deleteTokenById: "DELETE FROM Tokens WHERE ID_token = @ID_token",
+  updateTokenByUsuario: `
+    UPDATE Tokens 
+    SET token = @token, fechaGeneracion = @fechaGeneracion 
+    WHERE ID_usuario = @ID_usuario;
+  `
+};
