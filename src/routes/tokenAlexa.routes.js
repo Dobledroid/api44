@@ -17,6 +17,6 @@ router.post("/tokensAlexa", addNuevoToken);
 router.get("/tokensAlexa/:id", getTokenById);
 router.delete("/tokensAlexa/:id", deleteTokenById);
 router.put("/tokensAlexa/usuario/:id", updateTokenByUsuario);
-router.get("/tokens/validar/:token", validarToken);
+router.get("/tokens-validar/:token", validarToken);
 
 export default router;
