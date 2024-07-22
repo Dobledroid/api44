@@ -3,7 +3,7 @@ import { getConnection, sql, querysTokensAlexa } from "../database";
 export const getAllTokens = async (req, res) => {
   try {
     const pool = await getConnection();
-    const result = await pool.request().query(querysTokens.getAllTokens);
+    const result = await pool.request().query(querysTokensAlexa.getAllTokens);
     res.json(result.recordset);
   } catch (error) {
     res.status(500).send(error.message);
@@ -16,7 +16,7 @@ export const getTokensByUsuario = async (req, res) => {
     const result = await pool
       .request()
       .input("ID_usuario", sql.Int, req.params.id)
-      .query(querysTokens.getTokensByUsuario);
+      .query(querysTokensAlexa.getTokensByUsuario);
     res.json(result.recordset);
   } catch (error) {
     res.status(500).send(error.message);
@@ -39,7 +39,7 @@ export const addNuevoToken = async (req, res) => {
 //       .input("ID_usuario", sql.Int, ID_usuario)
 //       .input("fechaGeneracion", sql.VarChar, fechaGeneracion)
 //       .input("token", sql.Int, token)
-//       .query(querysTokens.addNuevoToken);
+//       .query(querysTokensAlexa.addNuevoToken);
 //     res.json({ ID_usuario, fechaGeneracion, token });
 //   } catch (error) {
 //     res.status(500).send(error.message);
@@ -52,7 +52,7 @@ export const getTokenById = async (req, res) => {
     const result = await pool
       .request()
       .input("ID_token", sql.Int, req.params.id)
-      .query(querysTokens.getTokenById);
+      .query(querysTokensAlexa.getTokenById);
     res.json(result.recordset[0]);
   } catch (error) {
     res.status(500).send(error.message);
@@ -65,7 +65,7 @@ export const deleteTokenById = async (req, res) => {
     const result = await pool
       .request()
       .input("ID_token", sql.Int, req.params.id)
-      .query(querysTokens.deleteTokenById);
+      .query(querysTokensAlexa.deleteTokenById);
     if (result.rowsAffected[0] === 0) return res.sendStatus(404);
     return res.sendStatus(204);
   } catch (error) {
@@ -87,7 +87,7 @@ export const updateTokenByUsuario = async (req, res) => {
       .input("ID_usuario", sql.Int, req.params.id)
       .input("token", sql.Int, token)
       .input("fechaGeneracion", sql.VarChar, fechaGeneracion)
-      .query(querysTokens.updateTokenByUsuario);
+      .query(querysTokensAlexa.updateTokenByUsuario);
     res.json({ token, fechaGeneracion });
   } catch (error) {
     res.status(500).send(error.message);
