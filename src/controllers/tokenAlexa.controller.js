@@ -28,22 +28,22 @@ export const addNuevoToken = async (req, res) => {
 
   console.log(req.body)
 
-//   if (ID_usuario == null || fechaGeneracion == null || token == null) {
-//     return res.status(400).json({ msg: 'Bad Request. Please provide all required fields' });
-//   }
+  if (ID_usuario == null || fechaGeneracion == null || token == null) {
+    return res.status(400).json({ msg: 'Bad Request. Please provide all required fields' });
+  }
 
-//   try {
-//     const pool = await getConnection();
-//     await pool
-//       .request()
-//       .input("ID_usuario", sql.Int, ID_usuario)
-//       .input("fechaGeneracion", sql.VarChar, fechaGeneracion)
-//       .input("token", sql.Int, token)
-//       .query(querysTokensAlexa.addNuevoToken);
-//     res.json({ ID_usuario, fechaGeneracion, token });
-//   } catch (error) {
-//     res.status(500).send(error.message);
-//   }
+  try {
+    const pool = await getConnection();
+    await pool
+      .request()
+      .input("ID_usuario", sql.Int, ID_usuario)
+      .input("fechaGeneracion", sql.VarChar, fechaGeneracion)
+      .input("token", sql.Int, token)
+      .query(querysTokensAlexa.addNuevoToken);
+    res.json({ ID_usuario, fechaGeneracion, token });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 };
 
 export const getTokenById = async (req, res) => {
