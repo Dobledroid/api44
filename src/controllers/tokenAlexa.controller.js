@@ -106,7 +106,7 @@ export const validarToken = async (req, res) => {
       const result = await pool
         .request()
         .input("token", sql.Int, token)
-        .query(querysTokens.validarToken);
+        .query(querysTokensAlexa.validarToken);
       if (result.recordset.length > 0) {
         return res.json(result.recordset[0]);
       } else {
