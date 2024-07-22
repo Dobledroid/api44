@@ -1,7 +1,7 @@
+import dotenv from 'dotenv';
+dotenv.config();
 
-export const baseURL = 'http://localhost:4000/api';
-
-// export const baseURL = 'https://api-rest-sport.vercel.app/api';
+export const baseURL = process.env.BASE_URL;
 
 export const sendMethod = async (req, res) => {
   const { method, email } = req.body;
