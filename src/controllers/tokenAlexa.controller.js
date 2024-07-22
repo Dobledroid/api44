@@ -93,3 +93,26 @@ export const updateTokenByUsuario = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
+export const validarToken = async (req, res) => {
+    const { token } = req.params;
+  
+    if (token == null) {
+      return res.status(400).json({ msg: 'Bad Request. Please provide a token' });
+    }
+  
+    try {
+      const pool = await getConnection();
+      const result = await pool
+        .request()
+        .input("token", sql.Int, token)
+        .query(querysTokens.validarToken);
+      if (result.recordset.length > 0) {
+        return res.json(result.recordset[0]);
+      } else {
+        return res.status(404).json({ msg: 'Token not valid' });
+      }
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  };

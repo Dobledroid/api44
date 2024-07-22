@@ -534,5 +534,11 @@ export const querysTokensAlexa = {
     UPDATE Tokens 
     SET token = @token, fechaGeneracion = @fechaGeneracion 
     WHERE ID_usuario = @ID_usuario;
+  `,
+  validarToken: `
+    SELECT cre.* 
+    FROM Tokens tok
+    INNER JOIN Credenciales cre ON cre.ID_usuario = tok.ID_usuario
+    WHERE tok.token = @token
   `
 };
