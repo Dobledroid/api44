@@ -536,9 +536,10 @@ export const querysTokensAlexa = {
     WHERE ID_usuario = @ID_usuario;
   `,
   validarToken: `
-    SELECT cre.* 
+    SELECT cre.*, usu.nombre
     FROM Tokens tok
     INNER JOIN Credenciales cre ON cre.ID_usuario = tok.ID_usuario
+    INNER JOIN Usuarios usu ON usu.ID_usuario = tok.ID_usuario
     WHERE tok.token = @token
   `
 };
