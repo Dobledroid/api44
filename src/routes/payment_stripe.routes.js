@@ -1,18 +1,17 @@
-import express from 'express';
-import Stripe from 'stripe';
-import config from '../config';
-
+// routes/payment_stripe.routes.js
+const express = require('express');
+const stripe = require('stripe')('sk_test_51PdbM8Hh07ihkU0MZKqwJewQxLstyyVZv5WMKNf53BfoOlf3baObdLdbvDrC5TPu3VsxTAL6ETzM3tHFYqZmnNtS00tjwnKNnS');
 const router = express.Router();
-const stripe = new Stripe(config.STRIPE_SECRET_KEY);
 
-router.post('/payment_stripe', async (req, res) => {
-  const { id, amount } = req.body;
+// En routes/payment_stripe.routes.js
+router.post('/procesar-pago', async (req, res) => {
+  const { paymentMethodId, amount, currency } = req.body; // Obtener la moneda
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency: 'usd',
-      payment_method: id,
+      amount: amount * 100, // Stripe maneja los montos en centavos
+      currency: currency, // Usar la moneda recibida
+      payment_method: paymentMethodId,
       confirm: true,
       automatic_payment_methods: {
         enabled: true,
@@ -20,17 +19,11 @@ router.post('/payment_stripe', async (req, res) => {
       },
     });
 
-    res.status(200).json({
-      success: true,
-      payment: paymentIntent,
-    });
+    res.json({ success: true, paymentIntent });
   } catch (error) {
-    console.error('Error processing payment:', error);
-    res.status(500).json({
-      success: false,
-      error: error.message,
-    });
+    console.error('Error procesando el pago:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 
-export default router;
+module.exports = router;
