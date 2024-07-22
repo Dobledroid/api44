@@ -52,6 +52,8 @@ import entradasMIembrosSmartwatchRoutes from "./routes/EntradasMiembros.routes.j
 //ALEXA
 import recordatoriosRoutes from "./routes/RecordatoriosUsuarios.routes.js";
 
+import tokensAlexa from "./routes/tokenAlexa.routes.js";
+
 import morgan from "morgan";
 import helmet from 'helmet';
 
@@ -185,5 +187,7 @@ app.use("/api", recordatoriosRoutes);
 app.use("/api", payment_stripe);
 
 //Nuevo cambio OSMAR 13/07/24
+
+app.use("/api", tokensAlexa);
 
 export { app };
