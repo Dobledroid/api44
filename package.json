@@ -4,6 +4,7 @@
   "description": "nodejs and Microsoft SQL Server Datbase REST API",
   "main": "index.js",
   "scripts": {
+    "check-licenses": "license-checker --json > licenses.json",
     "start": "nodemon ./src/index.js --exec babel-node"
   },
   "keywords": [],
