@@ -251,3 +251,21 @@ export const existeUnProductoEnCarritoByUserIDProductID = async (req, res) => {
     res.status(500).json({ error: 'Error al verificar la existencia del producto en el carrito' }); // Enviar error al cliente
   }
 };
+
+export const findByArticulo = async (req, res) => {
+  const { ID_articulo } = req.params;
+  if (ID_articulo == null) {
+    return res.status(400).json({ msg: 'Solicitud incorrecta. Proporcione el ID de artículo' });
+  }
+
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("ID_articulo", sql.NVarChar, ID_articulo)
+      .query('SELECT * FROM Productos WHERE ID_articulo = @ID_articulo');
+    return res.json(result.recordset);
+  } catch (error) {
+    res.status(500).send(escapeHtml(error.message));
+  }
+};
