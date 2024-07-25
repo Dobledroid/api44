@@ -10,7 +10,8 @@ import {
   getItemsByID,
   addItemToCartFromSkill,
   findByArticulo,
-  existeUnArticuloEnCarritoByUserIDArticuloID
+  existeUnArticuloEnCarritoByUserIDArticuloID,
+  removeItemFromCartSkill
 } from "../controllers/carritoCompras.controller";
 
 const router = Router();
@@ -27,6 +28,9 @@ router.get('/carrito-compras-existe-articulo/:ID_usuario/:ID_articulo', existeUn
 router.get('/productos-findByArticulo/:ID_articulo', findByArticulo);
 
 router.delete("/carrito-compras/:ID_carrito", deleteItemByID);
+router.post('/carrito-compras-eliminar', removeItemFromCartSkill);
+
 router.put("/carrito-compras/:ID_carrito", updateItemQuantityByID);
+
 
 export default router;
