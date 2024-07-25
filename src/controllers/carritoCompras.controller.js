@@ -30,6 +30,49 @@ export const addItemToCart = async (req, res) => {
   }
 };
 
+export const addItemToCartFromSkill = async (req, res) => {
+  const { ID_usuario, ID_articulo, cantidad } = req.body;
+
+  if (ID_usuario == null || ID_articulo == null || cantidad == null) {
+    return res.status(400).json({ msg: 'Solicitud incorrecta. Proporcione el ID de usuario, el ID del artículo y la cantidad.' });
+  }
+
+  try {
+    const pool = await getConnection();
+
+    // Obtener el ID_producto basado en el ID_articulo
+    const productoResult = await pool
+      .request()
+      .input('ID_articulo', sql.NVarChar, ID_articulo)
+      .query('SELECT ID_producto FROM Productos WHERE ID_articulo = @ID_articulo');
+
+    if (productoResult.recordset.length === 0) {
+      return res.status(404).json({ msg: 'Producto no encontrado' });
+    }
+
+    const ID_producto = productoResult.recordset[0].ID_producto;
+
+    const existingCartItem = await getCartItemByIds(pool, ID_usuario, ID_producto);
+
+    if (existingCartItem) {
+      await updateCartItem(pool, ID_usuario, ID_producto, cantidad);
+      return res.status(200).json({ msg: 'Cantidad actualizada en el carrito exitosamente' });
+    } else {
+      await pool
+        .request()
+        .input("ID_usuario", sql.Int, ID_usuario)
+        .input("ID_producto", sql.Int, ID_producto)
+        .input("cantidad", sql.Int, cantidad)
+        .query(querysCarritoCompras.addNewItem);
+
+      return res.status(200).json({ msg: 'Artículo agregado al carrito exitosamente' });
+    }
+  } catch (error) {
+    return res.status(500).json({ msg: 'Error interno del servidor' });
+  }
+};
+
+
 const getCartItemByIds = async (pool, ID_usuario, ID_producto) => {
   const result = await pool
     .request()

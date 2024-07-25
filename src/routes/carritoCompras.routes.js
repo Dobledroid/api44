@@ -7,12 +7,14 @@ import {
   getItemsOrderByUserID,
   getTotalItemsByUserID,
   existeUnProductoEnCarritoByUserIDProductID,
-  getItemsByID
+  getItemsByID,
+  addItemToCartFromSkill
 } from "../controllers/carritoCompras.controller";
 
 const router = Router();
 
 router.post("/carrito-compras", addItemToCart);
+router.post('/carrito-compras-skill', addItemToCartFromSkill);
 router.get("/carrito-compras/:ID_carrito", getItemsByID);
 router.get("/carrito-compras-ID-usuario/:ID_usuario", getItemsByUserID);
 router.get("/carrito-compras-order/:ID_usuario", getItemsOrderByUserID);
