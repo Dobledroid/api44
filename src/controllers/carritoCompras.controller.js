@@ -1,14 +1,61 @@
 import { getConnection, querysCarritoCompras, sql } from "../database";
 
-export const addItemToCart = async (req, res) => {
-  const { ID_usuario, ID_producto, cantidad } = req.body;
+// export const addItemToCart = async (req, res) => {
+//   const { ID_usuario, ID_producto, cantidad } = req.body;
 
-  if (ID_usuario == null || ID_producto == null || cantidad == null) {
-    return res.status(400).json({ msg: 'Solicitud incorrecta. Proporcione el ID de usuario, el ID del producto y la cantidad.' });
+//   if (ID_usuario == null || ID_producto == null || cantidad == null) {
+//     return res.status(400).json({ msg: 'Solicitud incorrecta. Proporcione el ID de usuario, el ID del producto y la cantidad.' });
+//   }
+
+//   try {
+//     const pool = await getConnection();
+
+//     const existingCartItem = await getCartItemByIds(pool, ID_usuario, ID_producto);
+
+//     if (existingCartItem) {
+//       await updateCartItem(pool, ID_usuario, ID_producto, cantidad);
+//       return res.status(200).json({ msg: 'Cantidad actualizada en el carrito exitosamente' });
+//     } else {
+//       await pool
+//         .request()
+//         .input("ID_usuario", sql.Int, ID_usuario)
+//         .input("ID_producto", sql.Int, ID_producto)
+//         .input("cantidad", sql.Int, cantidad)
+//         .query(querysCarritoCompras.addNewItem);
+
+//       return res.status(200).json({ msg: 'Artículo agregado al carrito exitosamente' });
+//     }
+//   } catch (error) {
+//     return res.status(500).json({ msg: 'Error interno del servidor' });
+//   }
+// };
+
+export const addItemToCart = async (req, res) => {
+  const { ID_usuario, ID_articulo, cantidad } = req.body;
+
+  if (ID_usuario == null || ID_articulo == null || cantidad == null) {
+    return res.status(400).json({ msg: 'Solicitud incorrecta. Proporcione el ID de usuario, el ID del artículo y la cantidad.' });
   }
 
   try {
     const pool = await getConnection();
+
+    // Obtener el ID_producto y las existencias a partir del ID_articulo
+    const resultProducto = await pool
+      .request()
+      .input('ID_articulo', sql.NVarChar, ID_articulo)
+      .query('SELECT ID_producto, existencias FROM Productos WHERE ID_articulo = @ID_articulo');
+
+    if (resultProducto.recordset.length === 0) {
+      return res.status(404).json({ msg: 'Producto no encontrado' });
+    }
+
+    const { ID_producto, existencias } = resultProducto.recordset[0];
+
+    // Validar que la cantidad solicitada no exceda las existencias
+    if (cantidad > existencias) {
+      return res.status(400).json({ msg: `No es posible agregar la cantidad solicitada debido a la falta de existencias. Stock actual: ${existencias}` });
+    }
 
     const existingCartItem = await getCartItemByIds(pool, ID_usuario, ID_producto);
 
@@ -26,9 +73,11 @@ export const addItemToCart = async (req, res) => {
       return res.status(200).json({ msg: 'Artículo agregado al carrito exitosamente' });
     }
   } catch (error) {
+    console.error('Error al agregar el producto al carrito:', error);
     return res.status(500).json({ msg: 'Error interno del servidor' });
   }
 };
+
 
 export const addItemToCartFromSkill = async (req, res) => {
   const { ID_usuario, ID_articulo, cantidad } = req.body;
