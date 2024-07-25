@@ -11,7 +11,8 @@ import {
   addItemToCartFromSkill,
   findByArticulo,
   existeUnArticuloEnCarritoByUserIDArticuloID,
-  removeItemFromCartSkill
+  removeItemFromCartSkill,
+  updateCartItemQuantitySkill
 } from "../controllers/carritoCompras.controller";
 
 const router = Router();
@@ -29,6 +30,9 @@ router.get('/productos-findByArticulo/:ID_articulo', findByArticulo);
 
 router.delete("/carrito-compras/:ID_carrito", deleteItemByID);
 router.post('/carrito-compras-eliminar', removeItemFromCartSkill);
+
+router.post('/carrito-compras-actualizar-cantidad', updateCartItemQuantitySkill);
+
 
 router.put("/carrito-compras/:ID_carrito", updateItemQuantityByID);
 

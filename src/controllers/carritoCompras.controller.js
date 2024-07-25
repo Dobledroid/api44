@@ -377,3 +377,44 @@ export const removeItemFromCartSkill = async (req, res) => {
       return res.status(500).json({ msg: 'Error interno del servidor' });
   }
 };
+
+
+export const updateCartItemQuantitySkill = async (req, res) => {
+  const { ID_usuario, ID_articulo, nuevaCantidad } = req.body;
+
+  if (!ID_usuario || !ID_articulo || !nuevaCantidad) {
+      return res.status(400).json({ msg: 'Solicitud incorrecta. Proporcione el ID de usuario, el ID del artículo y la nueva cantidad.' });
+  }
+
+  try {
+      const pool = await getConnection();
+
+      // Obtener el producto por ID_articulo
+      const resultProducto = await pool
+          .request()
+          .input('ID_articulo', sql.NVarChar, ID_articulo)
+          .query(querysCarritoCompras.getProductByArticleId);
+
+      if (resultProducto.recordset.length === 0) {
+          return res.status(404).json({ msg: 'Producto no encontrado.' });
+      }
+
+      const producto = resultProducto.recordset[0];
+
+      if (nuevaCantidad > producto.existencias) {
+          return res.status(400).json({ msg: `No es posible agregar ${nuevaCantidad} unidades. Solo hay ${producto.existencias} unidades disponibles.` });
+      }
+
+      // Actualizar la cantidad en el carrito
+      await pool
+          .request()
+          .input('ID_usuario', sql.Int, ID_usuario)
+          .input('ID_articulo', sql.NVarChar, ID_articulo)
+          .input('nuevaCantidad', sql.Int, nuevaCantidad)
+          .query(querysCarritoCompras.updateCartItemQuantity);
+
+      return res.status(200).json({ msg: 'Cantidad actualizada en el carrito exitosamente' });
+  } catch (error) {
+      return res.status(500).json({ msg: 'Error interno del servidor' });
+  }
+};

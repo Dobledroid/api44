@@ -248,6 +248,8 @@ export const querysCarritoCompras = {
     )
     GROUP BY ID_carrito;
   `,
+  getProductByArticleId: 'SELECT * FROM Productos WHERE ID_articulo = @ID_articulo',
+    updateCartItemQuantity: 'UPDATE CarritoCompras SET cantidad = @nuevaCantidad WHERE ID_usuario = @ID_usuario AND ID_producto = (SELECT ID_producto FROM Productos WHERE ID_articulo = @ID_articulo)',
 };
 
 export const querysDireccionEnvio = {
