@@ -239,7 +239,15 @@ export const querysCarritoCompras = {
   getCartItemByIds: "SELECT * FROM CarritoCompras WHERE ID_usuario = @ID_usuario AND ID_producto = @ID_producto;",
   updateCartItem: "UPDATE CarritoCompras SET cantidad = @cantidad WHERE ID_usuario = @ID_usuario AND ID_producto = @ID_producto;",
   getTotalItemsByUserID: "SELECT COUNT(*) AS totalProductosEnCarrito FROM CarritoCompras WHERE ID_usuario = @ID_usuario;",
-  existeUnProductoEnCarritoByUserIDProductID: "SELECT TOP 1 ID_carrito, COUNT(*) AS existeRegistro FROM CarritoCompras WHERE ID_producto = @ID_producto AND ID_usuario = @ID_usuario GROUP BY ID_carrito;"
+  existeUnProductoEnCarritoByUserIDProductID: "SELECT TOP 1 ID_carrito, COUNT(*) AS existeRegistro FROM CarritoCompras WHERE ID_producto = @ID_producto AND ID_usuario = @ID_usuario GROUP BY ID_carrito;",
+  existeUnArticuloEnCarritoByUserIDArticuloID: `
+    SELECT COUNT(*) AS existeRegistro, ID_carrito
+    FROM CarritoCompras
+    WHERE ID_usuario = @ID_usuario AND ID_producto = (
+      SELECT ID_producto FROM Productos WHERE ID_articulo = @ID_articulo
+    )
+    GROUP BY ID_carrito;
+  `,
 };
 
 export const querysDireccionEnvio = {

@@ -269,3 +269,25 @@ export const findByArticulo = async (req, res) => {
     res.status(500).send(escapeHtml(error.message));
   }
 };
+
+export const existeUnArticuloEnCarritoByUserIDArticuloID = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input('ID_usuario', sql.Int, req.params.ID_usuario)
+      .input('ID_articulo', sql.NVarChar, req.params.ID_articulo)
+      .query(querysCarritoCompras.existeUnArticuloEnCarritoByUserIDArticuloID);
+
+    if (result.recordset.length > 0) {
+      const existeRegistro = result.recordset[0].existeRegistro === 1;
+      const ID_carrito = result.recordset[0].ID_carrito;
+      res.json({ existeRegistro, ID_carrito });
+    } else {
+      res.json({ existeRegistro: false, ID_carrito: null });
+    }
+  } catch (error) {
+    console.error('Error al verificar si existe un artículo en el carrito:', error.message);
+    res.status(500).json({ error: 'Error al verificar la existencia del artículo en el carrito' });
+  }
+};
