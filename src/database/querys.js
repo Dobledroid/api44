@@ -310,6 +310,7 @@ export const querysPregunta = {
 }
 
 export const querysOrdenesPedidos = {
+  getAllOrdenesPedido:'SELECT * FROM OrdenesPedidos',
   addNewOrdenPedido: `
   DECLARE @InsertedID TABLE (ID_pedido INT);
   INSERT INTO OrdenesPedidos (ID_usuario, fecha, total, operacion_id, operacion_status, ID_direccion)

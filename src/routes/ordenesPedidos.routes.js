@@ -6,10 +6,11 @@ import {
   updateOrdenPedidoByID,
   deleteOrdenPedidoByID,
   existeUnOrdenPedidoByID,
-  getDetallesOrdenPetidoByID
+  getDetallesOrdenPetidoByID,getAllOrdenesPedido
 } from "../controllers/ordenesPedidos.controller";
 
 const router = Router();
+router.get("/orden-pedido/all", getAllOrdenesPedido);
 
 router.post("/orden-pedido", addNewOrdenPedido);
 router.get("/orden-pedido/usuario/:ID_usuario", getOrdenPedidoByUserID);

@@ -1,6 +1,21 @@
 import moment from 'moment-timezone';
 import { getConnection, querysOrdenesPedidos, sql } from "../database";
 
+export const getAllOrdenesPedido = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool.query(querysOrdenesPedidos.getAllOrdenesPedido);
+
+    if (result.recordset.length === 0) {
+      return res.status(404).json({ msg: "No se encontraron órdenes de pedido" });
+    }
+
+    res.json(result.recordset);
+  } catch (error) {
+    console.error("Error al obtener todas las órdenes de pedido:", error.message);
+    res.status(500).json({ msg: "Error al obtener todas las órdenes de pedido" });
+  }
+};
 export const addNewOrdenPedido = async (req, res) => {
   const { ID_usuario, fecha, total, operacion_id, operacion_status, ID_direccion } = req.body;
   if (
