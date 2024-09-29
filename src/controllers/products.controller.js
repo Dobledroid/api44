@@ -231,6 +231,42 @@ export const getProductByIdWithImagens = async (req, res) => {
   }
 };
 
+export const getProductByIdWithImagensIonic = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("ID_producto", req.params.id)
+      .query(querys.getProductByIdWithImagens);
+
+    if (result.recordset.length === 0) {
+      return res.status(404).json({ message: "Producto no encontrado" });
+    }
+
+    // Suponiendo que todas las filas se refieren al mismo producto
+    const product = {
+      ID_producto: result.recordset[0].ID_producto,
+      nombre: result.recordset[0].nombre,
+      descripcion: result.recordset[0].descripcion,
+      precio: result.recordset[0].precio,
+      descuento: result.recordset[0].descuento,
+      precioFinal: result.recordset[0].precioFinal,
+      existencias: result.recordset[0].existencias,
+      ID_categoria: result.recordset[0].ID_categoria,
+      ID_subcategoria: result.recordset[0].ID_subcategoria,
+      ID_marca: result.recordset[0].ID_marca,
+      ID_articulo: result.recordset[0].ID_articulo,
+      imagenes: result.recordset.map((row) => row.imagenUrl), // Agrupar las imágenes en un arreglo
+    };
+
+    res.json(product);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).send(error.message);
+  }
+};
+
+
 export const deleteProductById = async (req, res) => {
   console.log("deleteProductById", req.params);
   try {
