@@ -54,6 +54,10 @@ import recordatoriosRoutes from "./routes/RecordatoriosUsuarios.routes.js";
 
 import tokensAlexa from "./routes/tokenAlexa.routes.js";
 
+//IONIC
+import stripeIonic from "./routes/stripeIonic.routes.js";
+
+
 import morgan from "morgan";
 import helmet from 'helmet';
 
@@ -189,5 +193,8 @@ app.use("/api", payment_stripe);
 //Nuevo cambio OSMAR 13/07/24
 
 app.use("/api", tokensAlexa);
+
+//IONIC
+app.use("/api", stripeIonic);
 
 export { app };
