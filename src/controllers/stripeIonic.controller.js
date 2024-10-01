@@ -2,6 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // Crear Payment Intent
 export const createPaymentIntent = async (req, res) => {
     try {
+      //CAMBIO VERCEL
       // Valores ficticios para probar el pago
       const amount = 1000; // Monto fijo (por ejemplo, 1000 centavos equivale a 10.00 MXN)
       const currency = 'mxn'; // Moneda fija (MXN)
