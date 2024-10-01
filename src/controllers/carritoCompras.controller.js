@@ -156,7 +156,7 @@ export const getItemsByUserID = async (req, res) => {
       .query(querysCarritoCompras.getItemsByUserID);
     return res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(escapeHtml(error.message));
+    res.status(500).send(error.message);
   }
 };
 
@@ -179,7 +179,7 @@ export const getItemsByID = async (req, res) => {
       return res.status(404).json({ msg: 'No se encontraron elementos en el carrito con el ID proporcionado' });
     }
   } catch (error) {
-    res.status(500).send(escapeHtml(error.message));
+    res.status(500).send(error.message);
   }
 };
 
@@ -211,7 +211,7 @@ export const deleteItemByID = async (req, res) => {
     // console.log("ELIMINADO CORRECTAMENTE");
     return res.sendStatus(204);
   } catch (error) {
-    res.status(500).send(escapeHtml(error.message));;
+    res.status(500).send(error.message);
   }
 };
 
@@ -231,7 +231,7 @@ export const deleteItemsByUserID = async (ID_usuario) => {
     console.log("ELIMINADO CORRECTAMENTE");
     // return res.sendStatus(204);
   } catch (error) {
-    res.status(500).send(escapeHtml(error.message));
+    res.status(500).send(error.message);
   }
 };
 
@@ -253,7 +253,7 @@ export const updateItemQuantityByID = async (req, res) => {
       .query(querysCarritoCompras.updateItemQuantityByID);
     res.json({ msg: 'Cantidad de artículo actualizada correctamente' });
   } catch (error) {
-    res.status(500).send(escapeHtml(error.message));
+    res.status(500).send(error.message);
   }
 };
 
@@ -315,7 +315,7 @@ export const findByArticulo = async (req, res) => {
       .query('SELECT * FROM Productos WHERE ID_articulo = @ID_articulo');
     return res.json(result.recordset);
   } catch (error) {
-    res.status(500).send(escapeHtml(error.message));
+    res.status(500).send(error.message);
   }
 };
 
