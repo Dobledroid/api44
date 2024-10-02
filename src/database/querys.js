@@ -66,7 +66,26 @@ export const querys = {
   INNER JOIN 
     Marcas M ON P.ID_marca = M.ID_marca
   `,
-  updateItemQuantityByID_Orden: "UPDATE Productos SET existencias = @cantidad WHERE ID_producto =  @ID_producto"
+  updateItemQuantityByID_Orden: "UPDATE Productos SET existencias = @cantidad WHERE ID_producto =  @ID_producto",
+  getProductsByCategoryWithSingleImage: `
+    WITH ImagenesUnicas AS (
+      SELECT 
+        IMP.ID_producto,
+        IMP.imagenUrl,
+        ROW_NUMBER() OVER (PARTITION BY IMP.ID_producto ORDER BY IMP.ID_imagen) AS rn
+      FROM ImagenesProducto IMP
+    )
+    SELECT 
+      CP.ID_categoria, 
+      P.*, 
+      IU.imagenUrl
+    FROM 
+      Productos P
+    INNER JOIN CategoriasProductos CP ON P.ID_producto = CP.ID_categoria
+    INNER JOIN ImagenesUnicas IU ON P.ID_producto = IU.ID_producto
+    WHERE IU.rn = 1
+    AND CP.ID_categoria = @ID_categoria;
+  `
 };
 
 

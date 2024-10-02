@@ -13,7 +13,8 @@ import {
   getListProductsWithImagenPrincipalAdmin,
   createNewProductCrear,
   getProductByIdEditar,
-  getProductByIdWithImagensIonic
+  getProductByIdWithImagensIonic,
+  getProductsByCategoryWithSingleImage
 } from "../controllers/products.controller";
 
 import { v2 as cloudinary } from 'cloudinary';
@@ -63,7 +64,7 @@ router.get("/products-editar/:id", getProductByIdEditar);
 
 router.get("/products-with-imagens/:id", getProductByIdWithImagens);
 router.get("/products-with-imagensIonic/:id", getProductByIdWithImagensIonic);
-
+router.get("/list-products-by-category/:ID_categoria", getProductsByCategoryWithSingleImage);
 
 router.delete("/products/:id", deleteProductById);
 

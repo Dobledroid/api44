@@ -452,4 +452,26 @@ export const updateItemQuantityByID_Orden = async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
+
+
+  
+};
+
+export const getProductsByCategoryWithSingleImage = async (req, res) => {
+  try {
+    const { ID_categoria } = req.params;
+    if (!ID_categoria) {
+      return res.status(400).json({ message: "El parámetro 'ID_categoria' es requerido" });
+    }
+
+    const pool = await getConnection();
+    const result = await pool.request()
+      .input('ID_categoria', sql.Int, ID_categoria)
+      .query(querys.getProductsByCategoryWithSingleImage);
+      
+    res.json(result.recordset);
+  } catch (error) {
+    console.error('Error al obtener los productos por categoría:', error);
+    res.status(500).send(error.message);
+  }
 };
