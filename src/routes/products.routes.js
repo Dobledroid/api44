@@ -64,7 +64,7 @@ router.get("/products-editar/:id", getProductByIdEditar);
 
 router.get("/products-with-imagens/:id", getProductByIdWithImagens);
 router.get("/products-with-imagensIonic/:id", getProductByIdWithImagensIonic);
-router.get("/list-products-by-category/:ID_categoria", getProductsByCategoryWithSingleImage);
+router.get("/list-products-by-category-ionic/:ID_categoria", getProductsByCategoryWithSingleImage);
 
 router.delete("/products/:id", deleteProductById);
 
