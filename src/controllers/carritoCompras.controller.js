@@ -271,8 +271,9 @@ export const getTotalItemsByUserID = async (req, res) => {
       .input('ID_usuario', sql.Int, ID_usuario)
       .query(querysCarritoCompras.getTotalItemsByUserID);
 
-    const totalProductosEnCarrito = result.recordset[0].totalProductosEnCarrito;
-    return res.json({ totalProductosEnCarrito });
+      const totalProductosEnCarrito = result.recordset[0].totalProductosEnCarrito;
+      const totalPrecio = result.recordset[0].totalPrecio || 0; 
+      return res.json({ totalProductosEnCarrito, totalPrecio });
   } catch (error) {
     console.error('Error al obtener la cantidad total de productos en el carrito:', error.message);
     return res.status(500).json({ msg: 'Error al obtener la cantidad total de productos en el carrito' });
