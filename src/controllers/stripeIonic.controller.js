@@ -1,26 +1,97 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-// Crear Payment Intent
+const { updateItemQuantityByID_Orden } = require('./products.controller');
+const { getItemsOrderByUserID, deleteItemsByUserID } = require('./carritoCompras.controller');
+const { addNewOrdenPedido } = require('./ordenesPedidos.controller');
+const { addNewDetallePedido } = require('./detallesPedido.controller');
+const { obtenerFechaHoraActual } = require('../utilidades/dateUtils');
+
 export const createPaymentIntent = async (req, res) => {
   try {
-    // Extraer el monto del cuerpo de la solicitud
-    const { amount } = req.body;
-    
-    // Validar que el monto sea un número válido
+    console.log('Iniciando el proceso de createPaymentIntent...');
+
+    const { amount, ID_usuario, ID_direccion } = req.body;
+    console.log('Datos recibidos:', { amount, ID_usuario, ID_direccion });
+
+    // Validación del monto
     if (!amount || typeof amount !== 'number') {
+      console.error('Monto inválido:', amount);
       return res.status(400).send({ error: 'Monto inválido.' });
     }
 
-    const currency = 'mxn'; // Moneda fija (MXN)
+    const currency = 'mxn'; 
 
-    // Crear un Payment Intent con la cantidad y la moneda proporcionadas
+    // Crear Payment Intent con Stripe
+    console.log('Creando Payment Intent...');
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // Convertir a centavos
-      currency, // Debe coincidir con la moneda usada en el frontend
+      currency,
       payment_method_types: ['card'],
     });
+    console.log('Payment Intent creado con éxito:', paymentIntent.id);
 
-    // Enviar el client secret al frontend
-    res.status(200).send({ clientSecret: paymentIntent.client_secret });
+    // Esperar hasta que el paymentIntent se haya completado
+    console.log('Obteniendo el Payment Intent para verificar el estado...');
+    const intent = await stripe.paymentIntents.retrieve(paymentIntent.id);
+    console.log('Estado del Payment Intent:', intent.status);
+
+    if (intent && intent.status === 'succeeded') {
+      console.log('El Payment Intent ha sido completado exitosamente.');
+
+      const fechaHoraActual = new Date().toISOString();
+      console.log('Fecha y hora actual:', fechaHoraActual);
+
+      // Crear una nueva orden de pedido
+      console.log('Creando nueva orden de pedido...');
+      const ID_pedido = await addNewOrdenPedido({
+        ID_usuario,
+        fecha: fechaHoraActual,
+        total: amount,
+        operacion_id: paymentIntent.id,
+        operacion_status: paymentIntent.status,
+        ID_direccion,
+      });
+      console.log('Orden de pedido creada con ID:', ID_pedido);
+
+      // Obtener los ítems del carrito del usuario
+      console.log('Obteniendo ítems del carrito del usuario...');
+      const items = await getItemsOrderByUserID(ID_usuario);
+      console.log('Ítems obtenidos:', items);
+
+      // Agregar detalles del pedido
+      console.log('Agregando detalles del pedido...');
+      for (const item of items) {
+        const { ID_producto, cantidad, precioFinal } = item;
+        console.log(`Agregando detalle del pedido para el producto ${ID_producto}...`);
+
+        await addNewDetallePedido({
+          ID_pedido,
+          ID_producto,
+          cantidad,
+          precioUnitario: precioFinal,
+        });
+        console.log(`Detalle del pedido agregado para el producto ${ID_producto}.`);
+
+        // Actualizar la cantidad del producto
+        console.log(`Actualizando la cantidad del producto ${ID_producto}...`);
+        await updateItemQuantityByID_Orden({
+          ID_producto,
+          cantidad,
+        });
+        console.log(`Cantidad del producto ${ID_producto} actualizada.`);
+      }
+
+      // Eliminar los ítems del carrito del usuario
+      console.log('Eliminando ítems del carrito del usuario...');
+      await deleteItemsByUserID(ID_usuario);
+      console.log('Ítems del carrito eliminados.');
+
+      // Devolver el client secret y la URL de redirección
+      console.log('Devolviendo respuesta exitosa al cliente...');
+      res.status(200).send({ success: true, clientSecret: paymentIntent.client_secret });
+    } else {
+      console.error('El pago no se completó correctamente. Estado del Payment Intent:', intent?.status);
+      res.status(400).json({ message: "El pago no se completó correctamente" });
+    }
   } catch (error) {
     console.error('Error al crear el Payment Intent:', error);
     res.status(500).send({ error: error.message });
