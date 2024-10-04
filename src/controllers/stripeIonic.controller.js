@@ -57,12 +57,14 @@ export const processPayment = async (req, res) => {
       // Crear una nueva orden de pedido
       console.log('Creando nueva orden de pedido...');
       const ID_pedido = await addNewOrdenPedido({
-        ID_usuario,
-        fecha: fechaHoraActual,
-        total: amount,
-        operacion_id: paymentIntent.id,
-        operacion_status: paymentIntent.status,
-        ID_direccion,
+        body: {
+          ID_usuario,
+          fecha: fechaHoraActual,
+          total: amount,
+          operacion_id: paymentIntent.id,
+          operacion_status: paymentIntent.status,
+          ID_direccion,
+        }
       });
       console.log('Orden de pedido creada con ID:', ID_pedido);
 
@@ -75,18 +77,22 @@ export const processPayment = async (req, res) => {
       for (const item of items) {
         console.log(`Agregando detalle del pedido para el producto ${item.ID_producto}...`);
         await addNewDetallePedido({
-          ID_pedido,
-          ID_producto: item.ID_producto,
-          cantidad: item.cantidad,
-          precioUnitario: item.precioFinal,
+          body: {
+            ID_pedido,
+            ID_producto: item.ID_producto,
+            cantidad: item.cantidad,
+            precioUnitario: item.precioFinal,
+          }
         });
         console.log(`Detalle del pedido agregado para el producto ${item.ID_producto}.`);
 
         // Actualizar la cantidad del producto
         console.log(`Actualizando la cantidad del producto ${item.ID_producto}...`);
         await updateItemQuantityByID_Orden({
-          ID_producto: item.ID_producto,
-          cantidad: item.cantidad,
+          body: {
+            ID_producto: item.ID_producto,
+            cantidad: item.cantidad,
+          }
         });
         console.log(`Cantidad del producto ${item.ID_producto} actualizada.`);
       }
