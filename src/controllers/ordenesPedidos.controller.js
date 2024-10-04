@@ -196,3 +196,75 @@ export const existeUnOrdenPedidoByID = async (req, res) => {
     res.status(500).json({ error: 'Error al verificar la existencia de una orden pedido' });
   }
 };
+
+
+export const detalleComprasIonic = async (req, res) => {
+  const { ID_pedido } = req.params;
+
+  try {
+    const pool = await getConnection();
+
+    const result = await pool
+      .request()
+      .input("ID_pedido", sql.Int, ID_pedido)
+      .query(querysOrdenesPedidos.getDetallesComprasIonic);
+
+    if (result.recordset.length === 0) {
+      return res.status(404).json({ msg: "No se encontró la orden de pedido" });
+    }
+
+    // Obtener los datos generales del pedido
+    const {
+      ID_detalle,
+      cantidad,
+      precioUnitario,
+      fecha,
+      operacion_status,
+      ID_direccion,
+      ID_pedido: pedidoID,
+      total,
+
+    } = result.recordset[0];
+
+    // Agrupar los productos en un arreglo
+    const productos = result.recordset.map((detalle) => ({
+      ID_producto: detalle.ID_producto,
+      producto: detalle.producto,
+      precioUnitario: precioUnitario,
+      cantidad: cantidad,
+      total: precioUnitario * cantidad,
+      imagenUrl: detalle.imagenUrl,
+    }));
+
+    const direccion = {
+      nombre: result.recordset[0].nombre,
+      apellidos: result.recordset[0].apellidos,
+      pais: result.recordset[0].pais,
+      direccion: result.recordset[0].direccion,
+      ciudad: result.recordset[0].ciudad,
+      colonia: result.recordset[0].colonia,
+      estado: result.recordset[0].estado,
+      cp: result.recordset[0].codigoPostal,
+      tel: result.recordset[0].telefono,
+      referencias: result.recordset[0].referencias,
+    };
+
+    // Crear un objeto con la información del pedido y los productos
+    const response = {
+      ID_detalle,
+      fecha,
+      operacion_status,
+      ID_direccion,
+      ID_pedido: pedidoID,
+      total,
+      productos,
+      direccion
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error("Error al obtener los detalles del pedido:", error.message);
+    res.status(500).json({ msg: "Error al obtener los detalles del pedido" });
+  }
+};
+

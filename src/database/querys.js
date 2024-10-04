@@ -36,7 +36,7 @@ export const querys = {
   FROM Productos
   JOIN ImagenesProducto ON Productos.ID_producto = ImagenesProducto.ID_producto
   WHERE Productos.ID_producto = @ID_producto;`,
-  addNewProduct:  `
+  addNewProduct: `
   INSERT INTO Productos (nombre, descripcion, precio, descuento, precioFinal, existencias, ID_categoria, ID_subcategoria, ID_marca) 
   OUTPUT INSERTED.ID_producto
   VALUES (@nombre, @descripcion, @precioBase, @descuentoPorcentaje, @precioFinal, @cantidadExistencias, @ID_categoria, @ID_subcategoria, @ID_marca);
@@ -96,7 +96,7 @@ export const querysUsers = {
     INSERT INTO Usuarios (nombre, primerApellido, segundoApellido, fechaCreacion, ID_rol) 
     VALUES (@nombre, @primerApellido, @segundoApellido, GETDATE(), 2);
     SELECT SCOPE_IDENTITY() AS ID_usuario;
-  `,  
+  `,
   deleteUser: "DELETE FROM Usuarios WHERE ID_usuario = @IdUsuario",
   getTotalUsers: "SELECT COUNT(*) FROM Usuarios",
   updateUserById: "UPDATE Usuarios SET nombre = @nombre, primerApellido = @primerApellido, segundoApellido = @segundoApellido, direccion = @direccion, correoElectronico = @correoElectronico, contraseña = @contraseña, telefono = @telefono, fechaNacimiento = @fechaNacimiento, genero = @genero WHERE ID_usuario = @IdUsuario",
@@ -278,7 +278,7 @@ export const querysCarritoCompras = {
     GROUP BY ID_carrito;
   `,
   getProductByArticleId: 'SELECT * FROM Productos WHERE ID_articulo = @ID_articulo',
-    updateCartItemQuantity: 'UPDATE CarritoCompras SET cantidad = @nuevaCantidad WHERE ID_usuario = @ID_usuario AND ID_producto = (SELECT ID_producto FROM Productos WHERE ID_articulo = @ID_articulo)',
+  updateCartItemQuantity: 'UPDATE CarritoCompras SET cantidad = @nuevaCantidad WHERE ID_usuario = @ID_usuario AND ID_producto = (SELECT ID_producto FROM Productos WHERE ID_articulo = @ID_articulo)',
 };
 
 export const querysDireccionEnvio = {
@@ -339,7 +339,7 @@ export const querysPregunta = {
 }
 
 export const querysOrdenesPedidos = {
-  getAllOrdenesPedido:'SELECT * FROM OrdenesPedidos',
+  getAllOrdenesPedido: 'SELECT * FROM OrdenesPedidos',
   addNewOrdenPedido: `
   DECLARE @InsertedID TABLE (ID_pedido INT);
   INSERT INTO OrdenesPedidos (ID_usuario, fecha, total, operacion_id, operacion_status, ID_direccion)
@@ -360,7 +360,35 @@ SELECT ID_pedido FROM @InsertedID;
   LEFT JOIN Productos PR ON DP.ID_producto = PR.ID_producto
   LEFT JOIN DireccionesEnvio DR ON OP.ID_direccion = DR.ID_direccion
   WHERE DP.ID_pedido = @ID_pedido;
-  `
+  `,
+  getDetallesComprasIonic:
+    `
+        WITH ImagenesUnicas AS (
+          SELECT 
+            IMP.ID_producto,
+            IMP.imagenUrl,
+            ROW_NUMBER() OVER (PARTITION BY IMP.ID_producto ORDER BY IMP.ID_imagen ASC) AS row_num
+          FROM ImagenesProducto IMP
+        )
+        SELECT 
+          DP.ID_detalle,
+          DP.cantidad,
+          DP.precioUnitario,
+          OP.fecha,
+          OP.operacion_status,
+          OP.ID_pedido,
+          OP.total,
+          PR.ID_producto,
+          PR.nombre AS producto,
+          DE.*,
+          IMP.imagenUrl
+        FROM DetallesPedido DP
+        LEFT JOIN OrdenesPedidos OP ON DP.ID_pedido = OP.ID_pedido
+        LEFT JOIN Productos PR ON DP.ID_producto = PR.ID_producto
+        LEFT JOIN DireccionesEnvio DE ON OP.ID_direccion = DE.ID_direccion
+        LEFT JOIN ImagenesUnicas IMP ON PR.ID_producto = IMP.ID_producto AND IMP.row_num = 1
+        WHERE DP.ID_pedido = @ID_pedido;
+      `
 };
 
 export const querysDetallesPedido = {
@@ -444,7 +472,7 @@ WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch`,
     INSERT INTO SmartwatchUser (ID_usuario, genero, nacido, altura, peso) 
     VALUES (@ID_usuario, @genero, @nacido, @altura, @peso);
     SELECT SCOPE_IDENTITY() AS ID_usuarioSmartWatch;
-  `,  
+  `,
   deleteSmartwatchUser: "DELETE FROM SmartwatchUser WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch",
   updateSmartwatchUserById: "UPDATE SmartwatchUser SET genero = @genero, nacido = @nacido, altura = @altura, peso = @peso WHERE ID_usuarioSmartWatch = @IdUsuarioSmartWatch",
 };
@@ -457,7 +485,7 @@ export const querysSmartwatchMetrics = {
     INSERT INTO SmartwatchMetrics (ID_usuarioSmartWatch, pasos, distancia, calorias_quemadas, frecuencia_cardiaca, saturacion_oxigeno, fecha) 
     VALUES (@ID_usuarioSmartWatch, @pasos, @distancia, @calorias_quemadas, @frecuencia_cardiaca, @saturacion_oxigeno, @fecha);
     SELECT SCOPE_IDENTITY() AS ID_metric;
-  `,  
+  `,
   deleteSmartwatchMetrics: "DELETE FROM SmartwatchMetrics WHERE ID_metric = @IdMetric",
   updateSmartwatchMetricsById: `
     UPDATE SmartwatchMetrics 
@@ -497,8 +525,8 @@ export const querysRecordatoriosUsuarios = {
     UPDATE RecordatoriosUsuarios 
     SET tipoEntrenamiento = @tipoEntrenamiento, horaRecordatorio = @horaRecordatorio, fechaRecordatorio = @fechaRecordatorio 
     WHERE ID_recordatorio = @ID_recordatorio`,
-    
-    getAllRecordatoriosByUserId: "SELECT * FROM RecordatoriosUsuarios WHERE ID_usuario = @ID_usuario"
+
+  getAllRecordatoriosByUserId: "SELECT * FROM RecordatoriosUsuarios WHERE ID_usuario = @ID_usuario"
 };
 
 

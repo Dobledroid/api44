@@ -6,7 +6,9 @@ import {
   updateOrdenPedidoByID,
   deleteOrdenPedidoByID,
   existeUnOrdenPedidoByID,
-  getDetallesOrdenPetidoByID,getAllOrdenesPedido
+  getDetallesOrdenPetidoByID,
+  getAllOrdenesPedido,
+  detalleComprasIonic
 } from "../controllers/ordenesPedidos.controller";
 
 const router = Router();
@@ -17,6 +19,7 @@ router.get("/orden-pedido/usuario/:ID_usuario", getOrdenPedidoByUserID);
 router.get("/orden-pedido-existe/:id", existeUnOrdenPedidoByID);
 router.get("/orden-pedido/:ID_pedido", getOrdenPedidoByID);
 router.get("/orden-pedido-detalle-pedido/:ID_pedido", getDetallesOrdenPetidoByID);
+router.get("/orden-pedido-detalle-pedido-ionic/:ID_pedido", detalleComprasIonic);
 router.put("/orden-pedido/:ID_pedido", updateOrdenPedidoByID);
 router.delete("/orden-pedido/:ID_pedido", deleteOrdenPedidoByID);
 
