@@ -40,6 +40,7 @@ export const getItemsDetallesOrdenByUserID = async (req, res) => {
 };
 
 export const addNewDetallePedido = async (req, res) => {
+  console.log("addNewDetallePedido", req.body);
   const { ID_pedido, ID_producto, cantidad, precioUnitario } = req.body;
   console.log(req.body);
 

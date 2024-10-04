@@ -416,6 +416,7 @@ export const updateProductById = async (req, res) => {
 
 
 export const updateItemQuantityByID_Orden = async (req, res) => {
+  console.log("updateItemQuantityByID_Orden ", req.body);
   const { ID_producto, cantidad } = req.body;
 
   if (ID_producto == null || cantidad == null) {

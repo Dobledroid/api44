@@ -1,5 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { addNewOrdenPedido, addNewDetallePedido } = require('./ordenesPedidos.controller');
+const { addNewOrdenPedido } = require('./ordenesPedidos.controller');
+const { addNewDetallePedido } = require('./detallesPedido.controller');
 const { getItemsOrderByUserID, deleteItemsByUserID } = require('./carritoCompras.controller');
 const { updateItemQuantityByID_Orden } = require('./products.controller');
 

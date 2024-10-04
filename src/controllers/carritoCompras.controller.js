@@ -216,6 +216,7 @@ export const deleteItemByID = async (req, res) => {
 };
 
 export const deleteItemsByUserID = async (ID_usuario) => {
+  console.log("deleteItemsByUserID ", ID_usuario);
   if (ID_usuario == null) {
     throw new Error('ID de usuario no proporcionado');
   }

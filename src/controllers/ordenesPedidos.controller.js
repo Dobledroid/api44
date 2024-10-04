@@ -17,6 +17,7 @@ export const getAllOrdenesPedido = async (req, res) => {
   }
 };
 export const addNewOrdenPedido = async (req, res) => {
+  console.log("addNewOrdenPedido req.body ", req.body);
   const { ID_usuario, fecha, total, operacion_id, operacion_status, ID_direccion } = req.body;
   if (
     ID_usuario == null ||
