@@ -44,6 +44,9 @@ router.delete("/users/:id", authenticateJWT, deleteUserById);
 
 router.put("/users/:id", authenticateJWT, updateUserById);
 
+
+router.put("/users-ionic/:id", updateUserById);
+
 router.put("/users/update-password/:id", updatePasswordById);
 
 

@@ -228,6 +228,58 @@ export const updateUserById = async (req, res) => {
   }
 };
 
+export const updateUserById = async (req, res) => {
+  const { nombre, primerApellido, segundoApellido, telefono, fechaNacimiento, genero } = req.body;
+  if ((nombre == null || primerApellido == null || segundoApellido == null || fechaNacimiento == null || genero == null || telefono == null) ||
+    (nombre == '' || primerApellido == '' || segundoApellido == '' || fechaNacimiento == '' || genero == '' || telefono == '')) {
+    return res.status(400).json({ msg: "Solicitud incorrecta. Por favor complete todos los campos" });
+  }
+
+  try {
+    const pool = await getConnection();
+    await pool
+      .request()
+      .input("IdUsuario", sql.Int, req.params.id)
+      .input("nombre", sql.NVarChar, nombre)
+      .input("primerApellido", sql.NVarChar, primerApellido)
+      .input("segundoApellido", sql.NVarChar, segundoApellido)
+      .input("fechaNacimiento", sql.Date, fechaNacimiento)
+      .input("genero", sql.NVarChar, genero)
+      .input("telefono", sql.NVarChar, telefono)
+      .query(querysUsers.updateUserById);
+    return res.status(200).json();
+  } catch (error) {
+    res.status(500);
+    res.send(escapeHtml(error.message));
+  }
+};
+
+export const updateUserByIdIonic = async (req, res) => {
+  const { nombre, primerApellido, segundoApellido, telefono, genero } = req.body;
+  if ((nombre == null || primerApellido == null || segundoApellido == null || genero == null || telefono == null) ||
+    (nombre == '' || primerApellido == '' || segundoApellido == '' || genero == '' || telefono == '')) {
+    return res.status(400).json({ msg: "Solicitud incorrecta. Por favor complete todos los campos" });
+  }
+
+  try {
+    const pool = await getConnection();
+    await pool
+      .request()
+      .input("IdUsuario", sql.Int, req.params.id)
+      .input("nombre", sql.NVarChar, nombre)
+      .input("primerApellido", sql.NVarChar, primerApellido)
+      .input("segundoApellido", sql.NVarChar, segundoApellido)
+      .input("genero", sql.NVarChar, genero)
+      .input("telefono", sql.NVarChar, telefono)
+      .query(querysUsers.updateUserByIdIonic); 
+    return res.status(200).json();
+  } catch (error) {
+    res.status(500);
+    res.send(escapeHtml(error.message));
+  }
+};
+
+
 export const updatePasswordById = async (req, res) => {
   const { contraseña } = req.body;
 
