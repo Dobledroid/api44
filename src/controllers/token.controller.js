@@ -43,7 +43,8 @@ export const validateToken = async (req, res) => {
   console.log("validateToken", id, token)
   try {
     const userToken = await getUserTokenById(id);
-    if (!userToken || userToken.CodigoRecuperacion !== token) {
+    console.log("userToken", userToken)
+    if (!userToken || userToken.CodigoRecuperacion != token) {
       return res.status(401).json({ msg: 'Token inválido' });
     }
 
