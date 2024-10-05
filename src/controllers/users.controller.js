@@ -191,7 +191,7 @@ export const deleteUserById = async (req, res) => {
     return res.sendStatus(204);
   } catch (error) {
     res.status(500);
-    res.send(escapeHtml(error.message));
+    res.send(error.message);
   }
 };
 
@@ -224,7 +224,7 @@ export const updateUserById = async (req, res) => {
     return res.status(200).json();
   } catch (error) {
     res.status(500);
-    res.send(escapeHtml(error.message));
+    res.send(error.message);
   }
 };
 
@@ -250,7 +250,7 @@ export const updateUserByIdIonic = async (req, res) => {
     return res.status(200).json();
   } catch (error) {
     res.status(500);
-    res.send(escapeHtml(error.message));
+    res.send(error.message);
   }
 };
 
