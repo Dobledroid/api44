@@ -41,6 +41,8 @@ router.post("/users/login-skill", login_skill);
 
 router.post("/users/validate-password/", authenticateJWT, validatePassword);
 
+router.post("/users/validate-password-ionic/", validatePassword);
+
 router.delete("/users/:id", authenticateJWT, deleteUserById);
 
 router.put("/users/:id", authenticateJWT, updateUserById);
