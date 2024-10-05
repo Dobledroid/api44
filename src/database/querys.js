@@ -100,7 +100,7 @@ export const querysUsers = {
   deleteUser: "DELETE FROM Usuarios WHERE ID_usuario = @IdUsuario",
   getTotalUsers: "SELECT COUNT(*) FROM Usuarios",
   updateUserById: "UPDATE Usuarios SET nombre = @nombre, primerApellido = @primerApellido, segundoApellido = @segundoApellido, direccion = @direccion, correoElectronico = @correoElectronico, contraseña = @contraseña, telefono = @telefono, fechaNacimiento = @fechaNacimiento, genero = @genero WHERE ID_usuario = @IdUsuario",
-  updateUserByIdIonic: "UPDATE Usuarios SET nombre = @nombre, primerApellido = @primerApellido, segundoApellido = @segundoApellido, direccion = @direccion, correoElectronico = @correoElectronico, contraseña = @contraseña, telefono = @telefono, genero = @genero WHERE ID_usuario = @IdUsuario",
+  updateUserByIdIonic: "UPDATE Usuarios SET nombre = @nombre, primerApellido = @primerApellido, segundoApellido = @segundoApellido, telefono = @telefono, genero = @genero WHERE ID_usuario = @IdUsuario",
   getUserByEmail: "SELECT * FROM Credenciales WHERE correoElectronico = @correoElectronico;",
   getUserByEmail_smartwatch: `SELECT cre.*, usu.nombre FROM Credenciales cre
 INNER JOIN Usuarios usu ON usu.ID_usuario = cre.ID_usuario
