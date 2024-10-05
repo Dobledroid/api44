@@ -13,7 +13,8 @@ import {
   validatePassword,
   getUserByEmailOAuth,
   createNewUserOAuth,
-  login_skill
+  login_skill,
+  updateUserByIdIonic
 } from "../controllers/users.controller"; // Asegúrate de importar los controladores de usuarios
 import { authenticateJWT, authorizeAdmin } from '../middleware/authMiddleware';
 
@@ -45,7 +46,7 @@ router.delete("/users/:id", authenticateJWT, deleteUserById);
 router.put("/users/:id", authenticateJWT, updateUserById);
 
 
-router.put("/users-ionic/:id", updateUserById);
+router.put("/users-ionic/:id", updateUserByIdIonic);
 
 router.put("/users/update-password/:id", updatePasswordById);
 
