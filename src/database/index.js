@@ -42,3 +42,5 @@ export { querysFavoritos } from "./querys";
 
 
 export { querysTokensAlexa } from "./querys";
+
+export { querysEncuesta } from "./querys";

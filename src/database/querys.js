@@ -612,3 +612,23 @@ export const querysTokensAlexa = {
     WHERE tok.token = @token
   `
 };
+
+export const querysEncuesta = {
+  getAllRespuestas: "SELECT * FROM EncuestaRespuestas",
+  getRespuestasByUsuario: `
+    SELECT * 
+    FROM EncuestaRespuestas 
+    WHERE ID_usuario = @ID_usuario
+  `,
+  addNewRespuesta: `
+    INSERT INTO EncuestaRespuestas (ID_usuario, Respuesta, FechaRespuesta) 
+    VALUES (@ID_usuario, @Respuesta, @FechaRespuesta);
+  `,
+  getRespuestaById: "SELECT * FROM EncuestaRespuestas WHERE ID_encuesta = @ID_encuesta",
+  deleteRespuestaById: "DELETE FROM EncuestaRespuestas WHERE ID_encuesta = @ID_encuesta",
+  updateRespuestaById: `
+    UPDATE EncuestaRespuestas 
+    SET ID_usuario = @ID_usuario, Respuesta = @Respuesta, FechaRespuesta = @FechaRespuesta 
+    WHERE ID_encuesta = @ID_encuesta
+  `
+};
