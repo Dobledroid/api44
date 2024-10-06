@@ -102,7 +102,8 @@ export const processPayment = async (req, res) => {
       await deleteItemsByUserID(ID_usuario);
       console.log('Ítems del carrito eliminados.');
 
-      res.status(200).send({ success: true });
+      res.status(200).send({ success: true, ID_pedido: ID_pedido });
+
     } else {
       console.error('El pago no se completó correctamente. Estado del Payment Intent:', paymentIntent?.status);
       res.status(400).json({ message: "El pago no se completó correctamente" });
