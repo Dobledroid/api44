@@ -14,7 +14,8 @@ import {
   createNewProductCrear,
   getProductByIdEditar,
   getProductByIdWithImagensIonic,
-  getProductsByCategoryWithSingleImage
+  getProductsByCategoryWithSingleImage,
+  getProductExistenciasById
 } from "../controllers/products.controller";
 
 import { v2 as cloudinary } from 'cloudinary';
@@ -60,6 +61,7 @@ router.post("/products", upload.array('images', 10), createNewProduct);
 router.get("/products/count", getTotalProducts);
 
 router.get("/products/:id", getProductById);
+router.get("/products-existencias/:id", getProductExistenciasById);
 router.get("/products-editar/:id", getProductByIdEditar);
 
 router.get("/products-with-imagens/:id", getProductByIdWithImagens);

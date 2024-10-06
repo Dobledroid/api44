@@ -47,6 +47,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
+
 export const getListProductsWithImagen = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -189,6 +190,23 @@ export const getProductById = async (req, res) => {
       .input("IdProducto", req.params.id)
       .query(querys.getProductById);
     return res.json(result.recordset[0]);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+
+export const getProductExistenciasById = async (req, res) => {
+  console.log("getProductById - req.params", req.params)
+  try {
+    const pool = await getConnection();
+
+    const result = await pool
+      .request()
+      .input("IdProducto", req.params.id)
+      .query(querys.getProductById);
+      const { ID_producto, existencias } = result.recordset[0];
+      return res.json({ ID_producto, existencias });
   } catch (error) {
     res.status(500).send(error.message);
   }
