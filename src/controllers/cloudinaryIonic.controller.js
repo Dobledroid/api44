@@ -19,49 +19,46 @@ export const handleUserImageUpload = async (req, res) => {
     }
 
     // Subir la imagen directamente desde el buffer de memoria a Cloudinary
-    const result = await cloudinary.v2.uploader.upload_stream(
-      { folder: "Usuarios_Imagenes", public_id: `Usuario_${ID_usuario}` },
-      (error, result) => {
-        if (error) {
-          console.error('Error al subir la imagen a Cloudinary:', error);
-          return res.status(500).json({ msg: 'Error al subir la imagen' });
+    const result = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.v2.uploader.upload_stream(
+        { folder: "Usuarios_Imagenes", public_id: `Usuario_${ID_usuario}` },
+        (error, result) => {
+          if (error) {
+            return reject(error);
+          }
+          resolve(result);
         }
+      );
+      uploadStream.end(req.file.buffer); // Transmitimos el buffer de la imagen a Cloudinary
+    });
 
-        const imagenUrl = result.secure_url;
+    const imagenUrl = result.secure_url;
 
-        // Conexión a la base de datos
-        const pool = getConnection();
-        
-        const query = `
-          MERGE usuario_imagen AS target
-          USING (VALUES (${ID_usuario}, '${imagenUrl}')) AS source (ID_usuario, url_imagen)
-          ON target.ID_usuario = source.ID_usuario
-          WHEN MATCHED THEN 
-            UPDATE SET url_imagen = source.url_imagen
-          WHEN NOT MATCHED THEN
-            INSERT (ID_usuario, url_imagen) VALUES (source.ID_usuario, source.url_imagen);`;
+    // Conexión a la base de datos
+    const pool = await getConnection(); // Es importante usar 'await' para obtener la conexión a la base de datos
 
-        pool.request().query(query)
-          .then(() => {
-            res.status(200).json({ message: 'Imagen subida correctamente', imagenUrl });
-          })
-          .catch(dbError => {
-            console.error('Error al guardar la imagen en la base de datos:', dbError);
-            res.status(500).json({ msg: 'Error al guardar la imagen en la base de datos' });
-          });
-      }
-    );
+    const query = `
+      MERGE usuario_imagen AS target
+      USING (VALUES (@ID_usuario, @imagenUrl)) AS source (ID_usuario, url_imagen)
+      ON target.ID_usuario = source.ID_usuario
+      WHEN MATCHED THEN 
+        UPDATE SET url_imagen = source.url_imagen
+      WHEN NOT MATCHED THEN
+        INSERT (ID_usuario, url_imagen) VALUES (source.ID_usuario, source.url_imagen);
+    `;
 
-    // Es necesario transmitir el buffer de archivo desde multer a Cloudinary
-    result.end(req.file.buffer);
+    await pool.request()
+      .input('ID_usuario', sql.Int, ID_usuario)
+      .input('imagenUrl', sql.NVarChar, imagenUrl)
+      .query(query);
+
+    res.status(200).json({ message: 'Imagen subida correctamente', imagenUrl });
 
   } catch (error) {
     console.error('Error al subir la imagen de usuario:', error);
     res.status(500).json({ msg: error.message });
   }
 };
-
-
 export const getUserImageById = async (req, res) => {
     try {
       const { ID_usuario } = req.params;
