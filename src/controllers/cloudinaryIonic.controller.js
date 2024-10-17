@@ -1,8 +1,11 @@
 import cloudinary from "cloudinary";
 import fs from "fs";
 import { getConnection, sql } from "../database";
+import multer from "multer";
 
-// Subida de imagen de usuario a Cloudinary usando la variable de entorno
+const storage = multer.memoryStorage();
+export const upload = multer({ storage });
+
 export const handleUserImageUpload = async (req, res) => {
   try {
     const { ID_usuario } = req.body;
@@ -15,33 +18,43 @@ export const handleUserImageUpload = async (req, res) => {
       return res.status(400).json({ msg: 'La imagen es obligatoria' });
     }
 
-    // Subir imagen a Cloudinary
-    const result = await cloudinary.v2.uploader.upload(req.file.path, {
-      folder: "Usuarios_Imagenes",
-      public_id: `Usuario_${ID_usuario}`, // Public ID personalizado basado en el usuario
-    });
+    // Subir la imagen directamente desde el buffer de memoria a Cloudinary
+    const result = await cloudinary.v2.uploader.upload_stream(
+      { folder: "Usuarios_Imagenes", public_id: `Usuario_${ID_usuario}` },
+      (error, result) => {
+        if (error) {
+          console.error('Error al subir la imagen a Cloudinary:', error);
+          return res.status(500).json({ msg: 'Error al subir la imagen' });
+        }
 
-    const imagenUrl = result.secure_url;
+        const imagenUrl = result.secure_url;
 
-    // Conexión a la base de datos
-    const pool = await getConnection();
+        // Conexión a la base de datos
+        const pool = getConnection();
+        
+        const query = `
+          MERGE usuario_imagen AS target
+          USING (VALUES (${ID_usuario}, '${imagenUrl}')) AS source (ID_usuario, url_imagen)
+          ON target.ID_usuario = source.ID_usuario
+          WHEN MATCHED THEN 
+            UPDATE SET url_imagen = source.url_imagen
+          WHEN NOT MATCHED THEN
+            INSERT (ID_usuario, url_imagen) VALUES (source.ID_usuario, source.url_imagen);`;
 
-    // Insertar o actualizar URL de imagen en la tabla usuario_imagen
-    const query = `
-      MERGE usuario_imagen AS target
-      USING (VALUES (${ID_usuario}, '${imagenUrl}')) AS source (ID_usuario, url_imagen)
-      ON target.ID_usuario = source.ID_usuario
-      WHEN MATCHED THEN 
-        UPDATE SET url_imagen = source.url_imagen
-      WHEN NOT MATCHED THEN
-        INSERT (ID_usuario, url_imagen) VALUES (source.ID_usuario, source.url_imagen);`;
+        pool.request().query(query)
+          .then(() => {
+            res.status(200).json({ message: 'Imagen subida correctamente', imagenUrl });
+          })
+          .catch(dbError => {
+            console.error('Error al guardar la imagen en la base de datos:', dbError);
+            res.status(500).json({ msg: 'Error al guardar la imagen en la base de datos' });
+          });
+      }
+    );
 
-    await pool.request().query(query);
+    // Es necesario transmitir el buffer de archivo desde multer a Cloudinary
+    result.end(req.file.buffer);
 
-    // Eliminar archivo temporal después de subirlo a Cloudinary
-    fs.unlinkSync(req.file.path);
-
-    res.status(200).json({ message: 'Imagen subida correctamente', imagenUrl });
   } catch (error) {
     console.error('Error al subir la imagen de usuario:', error);
     res.status(500).json({ msg: error.message });

@@ -1,7 +1,5 @@
 import { Router } from "express";
-import { handleUserImageUpload, getUserImageById } from "../controllers/cloudinaryIonic.controller";
-const multer = require("multer");
-const upload = multer({ dest: 'uploads' }); // Directorio temporal para la subida de archivos
+import { handleUserImageUpload, getUserImageById, upload } from "../controllers/cloudinaryIonic.controller";
 
 const router = Router();
 
