@@ -57,6 +57,7 @@ import tokensAlexa from "./routes/tokenAlexa.routes.js";
 //IONIC
 import stripeIonic from "./routes/stripeIonic.routes.js";
 import encuestaIonic from "./routes/encuesta.routes.js";
+import cloudinaryIonic from "./routes/cloudinaryIonic.routes.js";
 
 import morgan from "morgan";
 import helmet from 'helmet';
@@ -197,5 +198,6 @@ app.use("/api", tokensAlexa);
 //IONIC
 app.use("/api", stripeIonic);
 app.use("/api", encuestaIonic);
+app.use("/api", cloudinaryIonic);
 
 export { app };
