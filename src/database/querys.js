@@ -68,23 +68,15 @@ export const querys = {
   `,
   updateItemQuantityByID_Orden: "UPDATE Productos SET existencias = @cantidad WHERE ID_producto =  @ID_producto",
   getProductsByCategoryWithSingleImage: `
-    WITH ImagenesUnicas AS (
-      SELECT 
-        IMP.ID_producto,
-        IMP.imagenUrl,
-        ROW_NUMBER() OVER (PARTITION BY IMP.ID_producto ORDER BY IMP.ID_imagen) AS rn
-      FROM ImagenesProducto IMP
-    )
-    SELECT 
-      CP.ID_categoria, 
-      P.*, 
-      IU.imagenUrl
-    FROM 
-      Productos P
-    INNER JOIN CategoriasProductos CP ON P.ID_producto = CP.ID_categoria
-    INNER JOIN ImagenesUnicas IU ON P.ID_producto = IU.ID_producto
-    WHERE IU.rn = 1
-    AND CP.ID_categoria = @ID_categoria;
+  SELECT *
+  FROM (
+  SELECT P.*, IP.imagenUrl,
+            ROW_NUMBER() OVER (PARTITION BY P.ID_producto ORDER BY IP.ID_imagen) AS rn
+      FROM Productos P
+    LEFT JOIN ImagenesProducto IP ON P.ID_producto = IP.ID_producto
+  	WHERE P.ID_categoria = @ID_categoria
+    ) AS ranked
+    WHERE rn = 1
   `
 };
 
@@ -630,5 +622,10 @@ export const querysEncuesta = {
     UPDATE EncuestaRespuestas 
     SET ID_usuario = @ID_usuario, Respuesta = @Respuesta, FechaRespuesta = @FechaRespuesta 
     WHERE ID_encuesta = @ID_encuesta
-  `
+  `,
+  getRespuestasByFecha: `
+  SELECT * 
+  FROM EncuestaRespuestas 
+  WHERE FechaRespuesta BETWEEN @FechaInicio AND @FechaFin
+`
 };

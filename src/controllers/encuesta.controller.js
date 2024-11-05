@@ -98,3 +98,24 @@ export const updateRespuestaById = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
+
+export const getRespuestasByFecha = async (req, res) => {
+  const { fechaInicio, fechaFin } = req.query;
+  console.log(fechaInicio, fechaFin)
+  if (!fechaInicio || !fechaFin) {
+    return res.status(400).json({ msg: 'Bad Request. Please provide start and end dates' });
+  }
+
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("FechaInicio", sql.DateTime, fechaInicio)
+      .input("FechaFin", sql.DateTime, fechaFin)
+      .query(querysEncuesta.getRespuestasByFecha);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};

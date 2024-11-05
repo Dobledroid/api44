@@ -5,7 +5,8 @@ import {
   addNewRespuesta, 
   getRespuestaById, 
   deleteRespuestaById, 
-  updateRespuestaById 
+  updateRespuestaById,
+  getRespuestasByFecha
 } from "../controllers/encuesta.controller.js";
 
 const router = Router();
@@ -16,5 +17,6 @@ router.post("/respuestas", addNewRespuesta); // Añadir una nueva respuesta
 router.get("/respuesta/:id", getRespuestaById); // Obtener una respuesta específica por ID de encuesta
 router.delete("/respuesta/:id", deleteRespuestaById); // Eliminar una respuesta por ID de encuesta
 router.put("/respuesta/:id", updateRespuestaById); // Actualizar una respuesta por ID de encuesta
+router.get('/respuestas-por-fecha', getRespuestasByFecha);
 
 export default router;
